@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 public class LevelFactory {
 	private static final int BLOCK = '1';
 	private static final int POINT = '0';
-	private static final int BONUS = 'B';
+	private static final int SUPER_PELLET = 'B';
 	private static final int PACMAN = 'P';
 	private static final int RED = 'W';
 	private static final int CYAN = 'X';
@@ -60,7 +60,11 @@ public class LevelFactory {
 					break;
 					
 				case POINT:
-					points.add(new Point(position, world));
+					points.add(new Point(position, world, false));
+					break;
+					
+				case SUPER_PELLET:
+					points.add(new Point(position, world, true));
 					break;
 					
 				case '\n':

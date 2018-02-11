@@ -6,14 +6,21 @@ import com.badlogic.gdx.math.Vector2;
 import net.feragon.pacman.view.TextureFactory;
 
 public class Point extends GameElement {
-	public Point(Vector2 position, World world) {
+	private boolean isSuperPellet;
+	
+	public Point(Vector2 position, World world, boolean isSuperPellet) {
 		super(position, world);
+		this.isSuperPellet = isSuperPellet;
 	}
 	
 	@Override
 	public Texture getTexture() {
-		// TODO Auto-generated method stub
-		return TextureFactory.getInstance().getTexturePoint();
+		if(isSuperPellet) {
+			return TextureFactory.getInstance().getSuperPellet();
+		}
+		else {
+			return TextureFactory.getInstance().getTexturePoint();
+		}
 	}
 
 }
