@@ -20,7 +20,13 @@ public abstract class GameElement {
 		this.position = position;
 	}
 
-	public abstract float getWidth();
-	public abstract float getHeight();
+	public float getWidth() {
+		return getTexture().getWidth();
+	}
+	
+	public float getHeight() {
+		return getTexture().getHeight();
+	}
+	
 	public abstract Texture getTexture();
 }
