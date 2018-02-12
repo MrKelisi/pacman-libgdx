@@ -12,6 +12,7 @@ public class Maze implements Iterable<GameElement> {
 	private HashMap<Vector2, GameElement> blocs;
 	private HashMap<Vector2, GameElement> points;
 	private ArrayList<GameElement> elements;
+	private ArrayList<Monster> monsters;
 	private Pacman pacman;
 	
 	public Maze(World world) {
@@ -21,6 +22,7 @@ public class Maze implements Iterable<GameElement> {
 		blocs = new HashMap<Vector2, GameElement>();
 		points = new HashMap<Vector2, GameElement>();
 		elements = new ArrayList<GameElement>();
+		monsters = new ArrayList<Monster>();
 		
 		loadDemoLevel();
 	}
@@ -58,12 +60,18 @@ public class Maze implements Iterable<GameElement> {
 			elements.add(ge);
 		}
 		
+		monsters = level.getMonsters();
+		for(GameElement ge : monsters) {
+			elements.add(ge);
+		}
+		
 		pacman = level.getPacman();
 	}
 	
 	public Pacman getPacman() {
 		return pacman;
 	}
+
 
 	public Iterator<GameElement> iterator() {
 		return elements.iterator();
