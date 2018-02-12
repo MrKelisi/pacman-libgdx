@@ -19,10 +19,12 @@ public class LevelFactory {
 	private ArrayList<Block> blocs;
 	private ArrayList<Point> points;
 	private Pacman pacman;
+	private ArrayList<Monster> monsters;
 	
 	public LevelFactory(String fileName, World world) {
 		blocs = new ArrayList<Block>();
 		points = new ArrayList<Point>();
+		monsters = new ArrayList<Monster>();
 		loadLevel(fileName, world);
 	}
 
@@ -67,6 +69,22 @@ public class LevelFactory {
 					points.add(new Point(position, world, true));
 					break;
 					
+				case RED:
+					monsters.add(new Monster(position, world, Monster.Type.RED));
+					break;
+					
+				case CYAN:
+					monsters.add(new Monster(position, world, Monster.Type.CYAN));
+					break;
+					
+				case YELLOW:
+					monsters.add(new Monster(position, world, Monster.Type.YELLOW));
+					break;
+					
+				case PINK:
+					monsters.add(new Monster(position, world, Monster.Type.PINK));
+					break;
+					
 				case '\n':
 					y++;
 					x = -1;
@@ -82,6 +100,10 @@ public class LevelFactory {
 		for(Point ge : points) {
 			correctPosition(ge, y);
 		}
+		
+		for(Monster monster : monsters) {
+			correctPosition(monster, y);
+		}
 	
 		correctPosition(pacman, y);
 		
@@ -91,6 +113,10 @@ public class LevelFactory {
 
 	public Pacman getPacman() {
 		return pacman;
+	}
+	
+	public ArrayList<Monster> getMonsters() {
+		return monsters;
 	}
 	
 	private void correctPosition(GameElement ge, int y) {
