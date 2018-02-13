@@ -38,9 +38,6 @@ public class WorldRenderer {
 			spriteBatch.draw(ge.getTexture(), ge.getPosition().x * size.x, ge.getPosition().y * size.y, size.x, size.y);
 		}
 		
-		Pacman pacman = world.getPacman();
-		spriteBatch.draw(pacman.getTexture(), pacman.getPosition().x * size.x, pacman.getPosition().y * size.y, size.x, size.y);
-		
 		spriteBatch.end();
 	}
 	

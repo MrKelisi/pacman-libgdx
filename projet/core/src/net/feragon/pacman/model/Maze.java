@@ -1,17 +1,16 @@
 package net.feragon.pacman.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import com.badlogic.gdx.math.Vector2;
 
-public class Maze implements Iterable<GameElement> {
+public class Maze {
 	private int width;
 	private int height;
 	private World world;
 	private HashMap<Vector2, GameElement> blocs;
-	private HashMap<Vector2, GameElement> points;
-	private ArrayList<GameElement> elements;
+	private HashMap<Vector2, GameElement> elements;
 	private ArrayList<Monster> monsters;
 	private Pacman pacman;
 	
@@ -20,8 +19,7 @@ public class Maze implements Iterable<GameElement> {
 		height = 0;
 		this.world = world;
 		blocs = new HashMap<Vector2, GameElement>();
-		points = new HashMap<Vector2, GameElement>();
-		elements = new ArrayList<GameElement>();
+		elements = new HashMap<Vector2, GameElement>();
 		monsters = new ArrayList<Monster>();
 		
 		loadDemoLevel();
@@ -52,28 +50,29 @@ public class Maze implements Iterable<GameElement> {
 		
 		for(GameElement ge : level.getBlocs()) {
 			blocs.put(ge.getPosition(), ge);
-			elements.add(ge);
 		}
 		
 		for(GameElement ge : level.getPoints()) {
-			points.put(ge.getPosition(), ge);
-			elements.add(ge);
+			elements.put(ge.getPosition(), ge);
 		}
 		
 		monsters = level.getMonsters();
-		for(GameElement ge : monsters) {
-			elements.add(ge);
-		}
-		
 		pacman = level.getPacman();
 	}
 	
 	public Pacman getPacman() {
 		return pacman;
 	}
-
-
-	public Iterator<GameElement> iterator() {
-		return elements.iterator();
+	
+	public ArrayList<Monster> getMonsters() {
+		return monsters;
+	}
+	
+	public Collection<GameElement> getBlocs() {
+		return blocs.values();
+	}
+	
+	public Collection<GameElement> getElements() {
+		return elements.values();
 	}
 }
