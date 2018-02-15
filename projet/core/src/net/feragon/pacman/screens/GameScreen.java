@@ -37,4 +37,8 @@ public class GameScreen {
 		renderer.dispose();
 		TextureFactory.getInstance().dispose();
 	}
+
+	public World getWorld() {
+		return world;
+	}
 }
