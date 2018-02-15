@@ -10,10 +10,4 @@ public class Block extends GameElement {
 		super(position, world);
 		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	public Texture getTexture() {
-		// TODO Auto-generated method stub
-		return TextureFactory.getInstance().getTextureBloc();
-	}
 }

@@ -8,11 +8,11 @@ public class PacmanInputProcessor implements InputProcessor {
 	private Pacman pacman;
 	
 	public PacmanInputProcessor(Pacman pacman) {
-		if(pacman == null) {
+		/*if(pacman == null) {
 			throw new NullPointerException("Pacman null");
 		}
 		
-		this.pacman = pacman;
+		this.pacman = pacman;*/
 	}
 	
 	@Override

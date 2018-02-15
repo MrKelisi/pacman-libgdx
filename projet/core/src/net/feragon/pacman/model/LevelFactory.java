@@ -1,39 +1,32 @@
 package net.feragon.pacman.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 public class LevelFactory {
-	private static final int BLOCK = '1';
-	private static final int POINT = '0';
-	private static final int SUPER_PELLET = 'B';
-	private static final int PACMAN = 'P';
-	private static final int RED = 'W';
-	private static final int CYAN = 'X';
-	private static final int YELLOW = 'Y';
-	private static final int PINK = 'Z';
+	private HashMap<Character, Class<? extends GameElement>> elementClasses;
 	
 	private int width;
 	private int height;
-	private ArrayList<Block> blocs;
-	private ArrayList<Point> points;
-	private Pacman pacman;
-	private ArrayList<Monster> monsters;
+	private HashMap<Class<? extends GameElement>, ArrayList<GameElement>> elements;
 	
 	public LevelFactory(String fileName, World world) {
-		blocs = new ArrayList<Block>();
-		points = new ArrayList<Point>();
-		monsters = new ArrayList<Monster>();
+		elements = new HashMap<Class<? extends GameElement>, ArrayList<GameElement>>();
+		elementClasses = new HashMap<Character, Class<? extends GameElement>>();
+		
+		elementClasses.put('1', Block.class);
+		elementClasses.put('0', Point.class);
+		elementClasses.put('B', SuperPellet.class);
+		elementClasses.put('P', Pacman.class);
+		elementClasses.put('W', RedMonster.class);
+		elementClasses.put('X', CyanMonster.class);
+		elementClasses.put('Y', YellowMonster.class);
+		elementClasses.put('Z', PinkMonster.class);
+		
 		loadLevel(fileName, world);
-	}
-
-	public ArrayList<Block> getBlocs() {
-		return blocs;
-	}
-
-	public ArrayList<Point> getPoints() {
-		return points;
 	}
 
 	public int getWidth() {
@@ -52,74 +45,52 @@ public class LevelFactory {
 		for(char c : file.toCharArray()) {
 			Vector2 position = new Vector2(x, y);
 			
-			switch (c) {
-				case BLOCK:
-					blocs.add(new Block(position, world));
-					break;
-				
-				case PACMAN:
-					pacman = new Pacman(position, world);
-					break;
-					
-				case POINT:
-					points.add(new Point(position, world, false));
-					break;
-					
-				case SUPER_PELLET:
-					points.add(new Point(position, world, true));
-					break;
-					
-				case RED:
-					monsters.add(new Monster(position, world, Monster.Type.RED));
-					break;
-					
-				case CYAN:
-					monsters.add(new Monster(position, world, Monster.Type.CYAN));
-					break;
-					
-				case YELLOW:
-					monsters.add(new Monster(position, world, Monster.Type.YELLOW));
-					break;
-					
-				case PINK:
-					monsters.add(new Monster(position, world, Monster.Type.PINK));
-					break;
-					
-				case '\n':
+			Class<? extends GameElement> elementClass = elementClasses.get(c);
+			if(elementClass == null) {
+				if(c == '\n') {
 					y++;
 					x = -1;
-					break;
+				}
 			}
+			else {
+				try {
+					GameElement ge = elementClass.getConstructor(Vector2.class, World.class).newInstance(position, world);
+					if(elements.containsKey(elementClass)) {
+						elements.get(elementClass).add(ge);
+					}
+					else {
+						ArrayList<GameElement> elementList = new ArrayList<GameElement>();
+						elementList.add(ge);
+						elements.put(elementClass, elementList);
+					}
+				} 
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
 			x++;	
 		}
 	
-		for(Block ge : blocs) {
-			correctPosition(ge, y);
+		for(ArrayList<GameElement> elementList : elements.values()) {
+			for(GameElement ge : elementList) {
+				correctPosition(ge, y);
+			}
 		}
-		
-		for(Point ge : points) {
-			correctPosition(ge, y);
-		}
-		
-		for(Monster monster : monsters) {
-			correctPosition(monster, y);
-		}
-	
-		correctPosition(pacman, y);
 		
 		width = x;
 		height = y + 1;
-	}
-
-	public Pacman getPacman() {
-		return pacman;
-	}
-	
-	public ArrayList<Monster> getMonsters() {
-		return monsters;
+		
+		if(!elements.containsKey(Pacman.class) || elements.get(Pacman.class).isEmpty()) {
+			throw new RuntimeException("Le niveau ne contient pas de Pac-Man");
+		}
 	}
 	
 	private void correctPosition(GameElement ge, int y) {
 		ge.setPosition(new Vector2(ge.getPosition().x, y - ge.getPosition().y));
+	}
+
+	public HashMap<Class<? extends GameElement>, ArrayList<GameElement>> getElements() {
+		return elements;
 	}
 }

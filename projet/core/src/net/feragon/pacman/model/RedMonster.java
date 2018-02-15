@@ -2,8 +2,8 @@ package net.feragon.pacman.model;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class Point extends GameElement {
-	public Point(Vector2 position, World world) {
+public class RedMonster extends GameElement {
+	public RedMonster(Vector2 position, World world) {
 		super(position, world);
 	}
 }

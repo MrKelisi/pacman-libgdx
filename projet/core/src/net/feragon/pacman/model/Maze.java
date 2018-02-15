@@ -11,19 +11,13 @@ public class Maze implements Iterable<GameElement> {
 	private int width;
 	private int height;
 	private World world;
-	private HashMap<Vector2, GameElement> blocs;
-	private HashMap<Vector2, GameElement> elements;
-	private ArrayList<Monster> monsters;
+	private HashMap<Class<? extends GameElement>, ArrayList<GameElement>> elements;
 	private Pacman pacman;
 	
 	public Maze(World world) {
 		width = 0;
 		height = 0;
 		this.world = world;
-		blocs = new HashMap<Vector2, GameElement>();
-		elements = new HashMap<Vector2, GameElement>();
-		monsters = new ArrayList<Monster>();
-		
 		loadDemoLevel();
 	}
 
@@ -36,10 +30,10 @@ public class Maze implements Iterable<GameElement> {
 	}
 
 	public Block get(int x, int y) {
-		GameElement block = blocs.get(new Vector2(x, y));
+		/*GameElement block = blocs.get(new Vector2(x, y));
 		if(block instanceof Block) {
 			return (Block) block;
-		}
+		}*/
 		
 		return null;
 	}
@@ -50,76 +44,45 @@ public class Maze implements Iterable<GameElement> {
 		width = level.getWidth();
 		height = level.getHeight();
 		
-		for(GameElement ge : level.getBlocs()) {
-			blocs.put(ge.getPosition(), ge);
-		}
-		
-		for(GameElement ge : level.getPoints()) {
-			elements.put(ge.getPosition(), ge);
-		}
-		
-		monsters = level.getMonsters();
-		pacman = level.getPacman();
+		elements = level.getElements();
 	}
 	
 	public Pacman getPacman() {
 		return pacman;
 	}
-	
-	public ArrayList<Monster> getMonsters() {
-		return monsters;
-	}
-	
-	public Collection<GameElement> getBlocs() {
-		return blocs.values();
-	}
-	
-	public Collection<GameElement> getElements() {
-		return elements.values();
-	}
 
 	@Override
 	public Iterator<GameElement> iterator() {
 		return new Iterator<GameElement>() {
-			private Iterator<GameElement> blocs = getBlocs().iterator();
-			private Iterator<GameElement> points = getElements().iterator();
-			private Iterator<? extends GameElement> monsters = getMonsters().iterator();
-			boolean pacmanGiven = false;
+			private Iterator<ArrayList<GameElement>> iterators = elements.values().iterator();
+			private Iterator<GameElement> iterator = null;
 			
-			private Iterator<? extends GameElement> getNextIterator() {
-				if(blocs.hasNext()) {
-					return blocs;
+			private Iterator<GameElement> getIterator() {
+				while((iterator == null || !iterator.hasNext()) && iterators.hasNext()) {
+					iterator = iterators.next().iterator();
 				}
 				
-				if(points.hasNext()) {
-					return points;
+				if(iterator.hasNext()) {
+					return iterator;
 				}
-				if(monsters.hasNext()) {
-					return monsters;
+				else {
+					return null;
 				}
-				
-				return null;
 			}
 			
 			@Override
 			public boolean hasNext() {
-				return !pacmanGiven;
+				return getIterator() != null;
 			}
 
 			@Override
 			public GameElement next() {
-				Iterator<? extends GameElement> ge = getNextIterator();
-				if(ge == null) {
-					if(!pacmanGiven) {
-						pacmanGiven = true;
-						return pacman;
-					}
-					else {
-						throw new RuntimeException("Il n'y a plus d'éléments");
-					}
+				Iterator<GameElement> i = getIterator();
+				if(i == null) {
+					throw new RuntimeException("Il n'y a plus d'éléments");
 				}
 				
-				return ge.next();
+				return i.next();
 			}
 		};
 	}

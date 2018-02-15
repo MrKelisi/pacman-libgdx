@@ -1,75 +1,59 @@
 package net.feragon.pacman.view;
 
+import java.util.HashMap;
+
 import com.badlogic.gdx.graphics.Texture;
 
+import net.feragon.pacman.model.Block;
+import net.feragon.pacman.model.CyanMonster;
+import net.feragon.pacman.model.GameElement;
+import net.feragon.pacman.model.Pacman;
+import net.feragon.pacman.model.PinkMonster;
+import net.feragon.pacman.model.Point;
+import net.feragon.pacman.model.RedMonster;
+import net.feragon.pacman.model.SuperPellet;
+import net.feragon.pacman.model.YellowMonster;
+
 public class TextureFactory {
-	private static TextureFactory instance = new TextureFactory();
-	private Texture pacman;
-	private Texture bloc;
-	private Texture point;
-	private Texture superPellet;
-	
-	private Texture redMonster;
-	private Texture yellowMonster;
-	private Texture pinkMonster;
-	private Texture cyanMonster;
+	private static TextureFactory instance = null;
+	private HashMap<Class<? extends GameElement>, Texture> textures;
 	
 	private TextureFactory() {
-		pacman = new Texture("images/pacman-3.png");
-		bloc = new Texture("images/bloc.png");
-		point = new Texture("images/pellet.png");
-		superPellet = new Texture("images/superpellet.png");
-		redMonster = new Texture("images/ghost1.png");
-		pinkMonster = new Texture("images/ghost2.png");
-		cyanMonster = new Texture("images/ghost3.png");
-		yellowMonster = new Texture("images/ghost4.png");
+		textures = new HashMap<Class<? extends GameElement>, Texture>();
+		
+		textures.put(Pacman.class, new Texture("images/pacman-3.png"));
+		textures.put(Block.class, new Texture("images/bloc.png"));
+		textures.put(Point.class, new Texture("images/pellet.png"));
+		textures.put(SuperPellet.class, new Texture("images/superpellet.png"));
+		textures.put(RedMonster.class, new Texture("images/ghost1.png"));
+		textures.put(PinkMonster.class, new Texture("images/ghost2.png"));
+		textures.put(CyanMonster.class, new Texture("images/ghost3.png"));
+		textures.put(YellowMonster.class, new Texture("images/ghost4.png"));
 	}
 	
 	public static TextureFactory getInstance() {
+		if(instance == null) {
+			instance = new TextureFactory();
+		}
 		return instance;
 	}
-
-	public Texture getTexturePacman() {
-		return pacman;
-	}
-
-	public Texture getTextureBloc() {
-		return bloc;
+	
+	public void reset() {
+		instance = null;
 	}
 	
-	public Texture getTexturePoint() {
-		return point;
+	@Override
+	public void finalize() {
+		dispose();
+	}
+
+	private void dispose() {
+		for(Texture texture : textures.values()) {
+			texture.dispose();
+		}
 	}
 	
-	public Texture getSuperPellet() {
-		return superPellet;
+	public Texture getTexture(Class<? extends GameElement> c) {
+		return textures.get(c);
 	}
-
-	public Texture getRedMonster() {
-		return redMonster;
-	}
-
-	public Texture getYellowMonster() {
-		return yellowMonster;
-	}
-
-	public Texture getPinkMonster() {
-		return pinkMonster;
-	}
-
-	public Texture getCyanMonster() {
-		return cyanMonster;
-	}
-
-	public void dispose() {
-		pacman.dispose();
-		bloc.dispose();
-		point.dispose();
-		superPellet.dispose();
-		cyanMonster.dispose();
-		pinkMonster.dispose();
-		yellowMonster.dispose();
-		redMonster.dispose();
-	}
-
 }
