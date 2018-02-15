@@ -45,6 +45,7 @@ public class Maze implements Iterable<GameElement> {
 		height = level.getHeight();
 		
 		elements = level.getElements();
+		pacman = (Pacman) elements.get(Pacman.class).get(0);
 	}
 	
 	public Pacman getPacman() {

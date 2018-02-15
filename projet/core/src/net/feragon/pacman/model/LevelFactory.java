@@ -81,8 +81,8 @@ public class LevelFactory {
 		width = x;
 		height = y + 1;
 		
-		if(!elements.containsKey(Pacman.class) || elements.get(Pacman.class).isEmpty()) {
-			throw new RuntimeException("Le niveau ne contient pas de Pac-Man");
+		if(!elements.containsKey(Pacman.class) || elements.get(Pacman.class).size() != 1) {
+			throw new RuntimeException("Le niveau ne contient pas ou plusieurs de Pac-Man");
 		}
 	}
 	
