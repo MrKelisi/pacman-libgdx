@@ -36,9 +36,7 @@ public class WorldRenderer {
 		spriteBatch.setProjectionMatrix(camera.combined);
 		
 		spriteBatch.begin();
-		System.out.println("---");
 		for(GameElement ge : world) {
-			System.out.println(ge);
 			spriteBatch.draw(ge.getTexture(), ge.getPosition().x * size.x, ge.getPosition().y * size.y, size.x, size.y);
 		}
 		

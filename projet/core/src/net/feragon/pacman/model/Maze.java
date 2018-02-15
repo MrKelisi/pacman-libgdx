@@ -3,9 +3,11 @@ package net.feragon.pacman.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+
 import com.badlogic.gdx.math.Vector2;
 
-public class Maze {
+public class Maze implements Iterable<GameElement> {
 	private int width;
 	private int height;
 	private World world;
@@ -74,5 +76,51 @@ public class Maze {
 	
 	public Collection<GameElement> getElements() {
 		return elements.values();
+	}
+
+	@Override
+	public Iterator<GameElement> iterator() {
+		return new Iterator<GameElement>() {
+			private Iterator<GameElement> blocs = getBlocs().iterator();
+			private Iterator<GameElement> points = getElements().iterator();
+			private Iterator<? extends GameElement> monsters = getMonsters().iterator();
+			boolean pacmanGiven = false;
+			
+			private Iterator<? extends GameElement> getNextIterator() {
+				if(blocs.hasNext()) {
+					return blocs;
+				}
+				
+				if(points.hasNext()) {
+					return points;
+				}
+				if(monsters.hasNext()) {
+					return monsters;
+				}
+				
+				return null;
+			}
+			
+			@Override
+			public boolean hasNext() {
+				return !pacmanGiven;
+			}
+
+			@Override
+			public GameElement next() {
+				Iterator<? extends GameElement> ge = getNextIterator();
+				if(ge == null) {
+					if(!pacmanGiven) {
+						pacmanGiven = true;
+						return pacman;
+					}
+					else {
+						throw new RuntimeException("Il n'y a plus d'éléments");
+					}
+				}
+				
+				return ge.next();
+			}
+		};
 	}
 }
