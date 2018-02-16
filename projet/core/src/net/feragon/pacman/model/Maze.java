@@ -13,12 +13,23 @@ public class Maze implements Iterable<GameElement> {
 	private World world;
 	private HashMap<Class<? extends GameElement>, ArrayList<GameElement>> elements;
 	private Pacman pacman;
+	private ArrayList<Class<? extends GameElement>> displayOrder;
 	
 	public Maze(World world) {
 		width = 0;
 		height = 0;
 		this.world = world;
 		loadDemoLevel();
+		
+		displayOrder = new ArrayList<Class<? extends GameElement>>();
+		displayOrder.add(Block.class);
+		displayOrder.add(Point.class);
+		displayOrder.add(SuperPellet.class);
+		displayOrder.add(PinkMonster.class);
+		displayOrder.add(RedMonster.class);
+		displayOrder.add(CyanMonster.class);
+		displayOrder.add(YellowMonster.class);
+		displayOrder.add(Pacman.class);
 	}
 
 	public int getWidth() {
@@ -55,12 +66,12 @@ public class Maze implements Iterable<GameElement> {
 	@Override
 	public Iterator<GameElement> iterator() {
 		return new Iterator<GameElement>() {
-			private Iterator<ArrayList<GameElement>> iterators = elements.values().iterator();
+			private Iterator<Class<? extends GameElement>> order = displayOrder.iterator();
 			private Iterator<GameElement> iterator = null;
 			
 			private Iterator<GameElement> getIterator() {
-				while((iterator == null || !iterator.hasNext()) && iterators.hasNext()) {
-					iterator = iterators.next().iterator();
+				while((iterator == null || !iterator.hasNext()) && order.hasNext()) {
+					iterator = elements.get(order.next()).iterator();
 				}
 				
 				if(iterator.hasNext()) {
