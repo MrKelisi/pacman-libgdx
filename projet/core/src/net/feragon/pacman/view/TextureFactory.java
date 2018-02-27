@@ -21,7 +21,7 @@ public class TextureFactory {
 	private TextureFactory() {
 		textures = new HashMap<Class<? extends GameElement>, ITexturable>();
 		
-		addSingleTexture(Pacman.class, "images/pacman-3.png");
+		textures.put(Pacman.class, new PacmanTexture());
 		addSingleTexture(Block.class, "images/bloc.png");
 		addSingleTexture(Point.class, "images/pellet.png");
 		addSingleTexture(SuperPellet.class, "images/superpellet.png");
@@ -59,5 +59,14 @@ public class TextureFactory {
 	
 	public Texture getTexture(Class<? extends GameElement> c) {
 		return textures.get(c).getTexture();
+	}
+	
+	/**
+	 * Donne l'object ITexturable associé à la classe
+	 * @param c Classe de l'élément
+	 * @return ITexturable
+	 */
+	public ITexturable getITexturable(Class<? extends GameElement> c) {
+		return textures.get(c);
 	}
 }

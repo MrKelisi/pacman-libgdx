@@ -24,7 +24,7 @@ public class PacmanGDX extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		gs.render(0);
+		gs.render(Gdx.graphics.getRawDeltaTime());
 	}
 	
 	@Override

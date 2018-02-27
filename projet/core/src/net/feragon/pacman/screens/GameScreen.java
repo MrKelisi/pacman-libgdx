@@ -18,7 +18,7 @@ public class GameScreen {
 	}
 	
 	public void render(float elapsedTime) {
-		renderer.render();
+		renderer.render(elapsedTime);
 	}
 	
 	public void resize(int width, int height) {

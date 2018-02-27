@@ -28,9 +28,15 @@ public class WorldRenderer {
 		
 		camera.setToOrtho(false, width, height);
 		camera.position.set(width/2, height/2, 0);
+		
+		PacmanTexture pacmanTexture = (PacmanTexture) TextureFactory.getInstance().getITexturable(Pacman.class);
+		pacmanTexture.setPacman(world.getMaze().getPacman());
 	}
 	
-	public void render() {
+	public void render(double timeElapsed) {
+		PacmanTexture pacmanTexture = (PacmanTexture) TextureFactory.getInstance().getITexturable(Pacman.class);
+		pacmanTexture.update(timeElapsed);
+		
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		
