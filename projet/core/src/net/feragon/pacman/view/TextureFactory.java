@@ -16,19 +16,23 @@ import net.feragon.pacman.model.YellowMonster;
 
 public class TextureFactory {
 	private static TextureFactory instance = null;
-	private HashMap<Class<? extends GameElement>, Texture> textures;
+	private HashMap<Class<? extends GameElement>, ITexturable> textures;
 	
 	private TextureFactory() {
-		textures = new HashMap<Class<? extends GameElement>, Texture>();
+		textures = new HashMap<Class<? extends GameElement>, ITexturable>();
 		
-		textures.put(Pacman.class, new Texture("images/pacman-3.png"));
-		textures.put(Block.class, new Texture("images/bloc.png"));
-		textures.put(Point.class, new Texture("images/pellet.png"));
-		textures.put(SuperPellet.class, new Texture("images/superpellet.png"));
-		textures.put(RedMonster.class, new Texture("images/ghost1.png"));
-		textures.put(PinkMonster.class, new Texture("images/ghost2.png"));
-		textures.put(CyanMonster.class, new Texture("images/ghost3.png"));
-		textures.put(YellowMonster.class, new Texture("images/ghost4.png"));
+		addSingleTexture(Pacman.class, "images/pacman-3.png");
+		addSingleTexture(Block.class, "images/bloc.png");
+		addSingleTexture(Point.class, "images/pellet.png");
+		addSingleTexture(SuperPellet.class, "images/superpellet.png");
+		addSingleTexture(RedMonster.class, "images/ghost1.png");
+		addSingleTexture(PinkMonster.class, "images/ghost2.png");
+		addSingleTexture(CyanMonster.class, "images/ghost3.png");
+		addSingleTexture(YellowMonster.class, "images/ghost4.png");
+	}
+	
+	private void addSingleTexture(Class<? extends GameElement> c, String path) {
+		textures.put(c, new SingleTexture(new Texture(path)));
 	}
 	
 	public static TextureFactory getInstance() {
@@ -48,12 +52,12 @@ public class TextureFactory {
 	}
 
 	private void dispose() {
-		for(Texture texture : textures.values()) {
+		for(ITexturable texture : textures.values()) {
 			texture.dispose();
 		}
 	}
 	
 	public Texture getTexture(Class<? extends GameElement> c) {
-		return textures.get(c);
+		return textures.get(c).getTexture();
 	}
 }
