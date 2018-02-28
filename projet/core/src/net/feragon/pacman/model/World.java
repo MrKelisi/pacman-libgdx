@@ -3,6 +3,8 @@ package net.feragon.pacman.model;
 import java.util.Iterator;
 
 public class World implements Iterable<GameElement> {
+	public final static float TICK_TIME = 0.5f;
+	private float _tickProgression;
 	private Maze laby;
 	
 	public World() {
@@ -23,5 +25,19 @@ public class World implements Iterable<GameElement> {
 
 	public Iterator<GameElement> iterator() {
 		return laby.iterator();
+	}
+	
+	/**
+	 * Fait avancer le monde !
+	 * @param timeElapsed Temps écoulé depuis la dernière mise à jour
+	 */
+	public void update(float timeElapsed) {
+		_tickProgression += timeElapsed; 
+		
+		if(_tickProgression >= TICK_TIME) {
+			_tickProgression %= TICK_TIME;
+			getMaze().getPacman().move();
+		}
+		getMaze().getPacman().move(_tickProgression);
 	}
 }

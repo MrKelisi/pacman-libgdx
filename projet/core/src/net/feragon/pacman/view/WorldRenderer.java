@@ -37,16 +37,11 @@ public class WorldRenderer {
 		
 		PacmanTexture pacmanTexture = (PacmanTexture) TextureFactory.getInstance().getITexturable(Pacman.class);
 		pacmanTexture.setPacman(world.getMaze().getPacman());
-
-		timer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				world.getMaze().getPacman().move();
-			}
-		}, 0, 400);
 	}
 	
-	public void render(double timeElapsed) {
+	public void render(float timeElapsed) {
+		world.update(timeElapsed);
+		
 		PacmanTexture pacmanTexture = (PacmanTexture) TextureFactory.getInstance().getITexturable(Pacman.class);
 		pacmanTexture.update(timeElapsed);
 		
