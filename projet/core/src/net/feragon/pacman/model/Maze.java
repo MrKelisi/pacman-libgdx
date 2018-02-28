@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 
 public class Maze implements Iterable<GameElement> {
@@ -14,6 +15,7 @@ public class Maze implements Iterable<GameElement> {
 	private HashMap<Class<? extends GameElement>, ArrayList<GameElement>> elements;
 	private Pacman pacman;
 	private ArrayList<Class<? extends GameElement>> displayOrder;
+	private ArrayList<GameElement> disposeElements;
 	
 	public Maze(World world) {
 		width = 0;
@@ -30,6 +32,8 @@ public class Maze implements Iterable<GameElement> {
 		displayOrder.add(CyanMonster.class);
 		displayOrder.add(YellowMonster.class);
 		displayOrder.add(Pacman.class);
+
+		disposeElements = new ArrayList<GameElement>();
 	}
 
 	public int getWidth() {
@@ -40,11 +44,11 @@ public class Maze implements Iterable<GameElement> {
 		return height;
 	}
 
-	public Block get(int x, int y) {
-	    Vector2 vf = new Vector2(x,y);
+	public Block get(Vector2 pos) {
+        ArrayList<GameElement> liste_blocks = elements.get(Block.class);
 
-		for(GameElement ge : world) {
-		    if(ge instanceof Block && ge.getPosition().equals(vf))
+		for(GameElement ge : liste_blocks) {
+		    if(ge.getPosition().equals(pos))
 		        return (Block) ge;
         }
 		
@@ -65,6 +69,19 @@ public class Maze implements Iterable<GameElement> {
 		return pacman;
 	}
 
+	public void eat(Vector2 pos) {
+        ArrayList<GameElement> liste_points = elements.get(Point.class);
+        //liste_points.addAll(elements.get(SuperPellet.class));
+
+	    for(GameElement ge : liste_points) {
+            if(ge.getPosition().equals(pos)) {
+                getPacman().addPoints(/*ge instanceof SuperPellet ? 100 : */10);
+                disposeElements.add(ge);
+                break;
+            }
+        }
+    }
+
 	@Override
 	public Iterator<GameElement> iterator() {
 		return new Iterator<GameElement>() {
@@ -80,6 +97,7 @@ public class Maze implements Iterable<GameElement> {
 					return iterator;
 				}
 				else {
+                    elements.get(Point.class).removeAll(disposeElements);
 					return null;
 				}
 			}

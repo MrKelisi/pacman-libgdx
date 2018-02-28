@@ -23,18 +23,17 @@ public class Pacman extends Player {
             default:    i = 0; j = 0;
         }
 
-        int x = (int) getPosition().x + i;
-        int y = (int) getPosition().y + j;
+        Vector2 newPos = new Vector2(getPosition().x + i, getPosition().y + j);
 
-        if(world.getMaze().get(x, y) == null) {
-            if(x == -1)
-                setPosition(new Vector2(world.getWidth()-1, y));
-            else if(x == world.getWidth())
-                setPosition(new Vector2(0, y));
-            else
-                setPosition(new Vector2(x, y));
+        if(world.getMaze().get(newPos) == null) {
+            if(newPos.x == -1)
+                newPos.set(world.getWidth()-1, newPos.y);
+            else if(newPos.x == world.getWidth())
+                newPos.set(0, newPos.y);
+
+            setPosition(newPos);
         }
 
-        //eat();
+        world.getMaze().eat(getPosition());
     }
 }
