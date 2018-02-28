@@ -11,13 +11,17 @@ import net.feragon.pacman.model.GameElement;
 import net.feragon.pacman.model.Pacman;
 import net.feragon.pacman.model.World;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class WorldRenderer {
 	private SpriteBatch spriteBatch;
 	private World world;
 	private Vector2 size;
 	private OrthographicCamera camera;
+	private Timer timer = new Timer();
 	
-	public WorldRenderer(World world) {
+	public WorldRenderer(final World world) {
 		spriteBatch = new SpriteBatch();
 		this.world = world;
 		size = new Vector2(16, 16);
@@ -31,6 +35,13 @@ public class WorldRenderer {
 		
 		PacmanTexture pacmanTexture = (PacmanTexture) TextureFactory.getInstance().getITexturable(Pacman.class);
 		pacmanTexture.setPacman(world.getMaze().getPacman());
+
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				world.getMaze().getPacman().move();
+			}
+		}, 0, 400);
 	}
 	
 	public void render(double timeElapsed) {

@@ -2,7 +2,6 @@ package net.feragon.pacman.model;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-
 import net.feragon.pacman.view.TextureFactory;
 
 public abstract class GameElement {

@@ -12,32 +12,33 @@ public class PacmanTexture implements ITexturable {
 	private Pacman _pacman;
 	
 	public PacmanTexture() {
+        int fps = 7;
 		_pacman = null;
 		_textures = new EnumMap<Direction, AnimatedTexture>(Direction.class);
 		
 		_textures.put(Direction.LEFT, new AnimatedTexture(
-				3, 
+				fps,
 				new Texture("images/pacmanLeft-2.png"),
 				new Texture("images/pacmanLeft.png"),
 				new Texture("images/pacman-3.png")
 		));
 		
 		_textures.put(Direction.UP, new AnimatedTexture(
-				3, 
+				fps,
 				new Texture("images/pacmanUp-2.png"),
 				new Texture("images/pacmanUp.png"),
 				new Texture("images/pacman-3.png")
 		));
 		
 		_textures.put(Direction.RIGHT, new AnimatedTexture(
-				3, 
+				fps,
 				new Texture("images/pacmanRight-2.png"),
 				new Texture("images/pacmanRight.png"),
 				new Texture("images/pacman-3.png")
 		));
 		
 		_textures.put(Direction.DOWN, new AnimatedTexture(
-				3, 
+				fps,
 				new Texture("images/pacmanDown-2.png"),
 				new Texture("images/pacmanDown.png"),
 				new Texture("images/pacman-3.png")

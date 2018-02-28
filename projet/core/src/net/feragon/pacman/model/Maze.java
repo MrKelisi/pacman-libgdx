@@ -41,10 +41,12 @@ public class Maze implements Iterable<GameElement> {
 	}
 
 	public Block get(int x, int y) {
-		/*GameElement block = blocs.get(new Vector2(x, y));
-		if(block instanceof Block) {
-			return (Block) block;
-		}*/
+	    Vector2 vf = new Vector2(x,y);
+
+		for(GameElement ge : world) {
+		    if(ge instanceof Block && ge.getPosition().equals(vf))
+		        return (Block) ge;
+        }
 		
 		return null;
 	}

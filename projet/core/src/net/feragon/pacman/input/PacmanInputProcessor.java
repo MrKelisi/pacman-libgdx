@@ -1,8 +1,8 @@
 package net.feragon.pacman.input;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-
 import net.feragon.pacman.model.Direction;
 import net.feragon.pacman.model.Pacman;
 
@@ -20,25 +20,21 @@ public class PacmanInputProcessor implements InputProcessor {
 	@Override
 	public boolean keyDown(int keycode) {
 		switch (keycode) {
-			case 19:
-				pacman.setDirection(Direction.UP);
-				pacman.setPosition(pacman.getPosition().add(0, 1));
+			case Input.Keys.LEFT:
+                pacman.setDirection(Direction.LEFT);
 				break;
-			
-			case 20:
-				pacman.setDirection(Direction.DOWN);
-				pacman.setPosition(pacman.getPosition().add(0, -1));
-				break;
-			
-			case 21:
-				pacman.setDirection(Direction.LEFT);
-				pacman.setPosition(pacman.getPosition().add(-1, 0));
-				break;
-				
-			case 22:
-				pacman.setDirection(Direction.RIGHT);
-				pacman.setPosition(pacman.getPosition().add(1, 0));
-				break;
+
+            case Input.Keys.UP:
+                pacman.setDirection(Direction.UP);
+                break;
+
+            case Input.Keys.RIGHT:
+                pacman.setDirection(Direction.RIGHT);
+                break;
+
+            case Input.Keys.DOWN:
+                pacman.setDirection(Direction.DOWN);
+                break;
 				
 			default:
 				return false;
