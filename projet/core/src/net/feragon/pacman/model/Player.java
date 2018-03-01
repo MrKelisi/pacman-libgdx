@@ -97,13 +97,13 @@ public class Player extends GameElement {
             
             setPosition(newPos);
         }
+        else {
+            newPos = _origin.cpy();
+        }
         
         Vector2 newDirectionNextPos = newPos.cpy().add(_nextDirection.moveVector());
         if(world.getMaze().get(newDirectionNextPos) == null) {
         	_direction = _nextDirection;
-        }
-        else {
-        	_nextDirection = _direction;
         }
 	}
 	
