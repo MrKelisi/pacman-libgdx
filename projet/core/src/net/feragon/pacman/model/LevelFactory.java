@@ -25,6 +25,8 @@ public class LevelFactory {
 		elementClasses.put('X', CyanMonster.class);
 		elementClasses.put('Y', YellowMonster.class);
 		elementClasses.put('Z', PinkMonster.class);
+		elementClasses.put('V', Blank.class);
+
 		
 		loadLevel(fileName, world);
 	}
