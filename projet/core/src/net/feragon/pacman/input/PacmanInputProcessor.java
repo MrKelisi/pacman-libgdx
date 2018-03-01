@@ -61,20 +61,17 @@ public class PacmanInputProcessor implements InputProcessor {
 		screenX -= halfWidth;
 		screenY -= halfHeight;
 		
-		System.out.println(screenX);
-		System.out.println(screenY);
-		
 		if(screenY > Math.abs(screenX)) {
-			pacman.setPosition(pacman.getPosition().add(0, -1));
+			pacman.setNextDirection(Direction.DOWN);
 		}
 		else if(screenY < -Math.abs(screenX)) {
-			pacman.setPosition(pacman.getPosition().add(0, 1));
+			pacman.setNextDirection(Direction.UP);
 		}
 		else if(screenX < Math.abs(screenY)) {
-			pacman.setPosition(pacman.getPosition().add(-1, 0));
+			pacman.setNextDirection(Direction.LEFT);
 		}
 		else {
-			pacman.setPosition(pacman.getPosition().add(1, 0));
+			pacman.setNextDirection(Direction.RIGHT);
 		}
 		
 		return true;
