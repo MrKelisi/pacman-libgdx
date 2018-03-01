@@ -14,12 +14,14 @@ public class Maze implements Iterable<GameElement> {
 	private HashMap<Vector2, GameElement> _elementsPos;
 	private Pacman pacman;
 	private ArrayList<Class<? extends GameElement>> displayOrder;
+	private ArrayList<Monster> _monsters;
 	
 	public Maze(World world) {
 		width = 0;
 		height = 0;
 		this.world = world;
 		_elementsPos = new HashMap<Vector2, GameElement>();
+		_monsters = new ArrayList<Monster>();
 		
 		loadDemoLevel();
 		
@@ -63,6 +65,10 @@ public class Maze implements Iterable<GameElement> {
 		for(ArrayList<GameElement> gameElements : _elements.values()) {
 			for(GameElement ge : gameElements) {
 				_elementsPos.put(ge.getPosition(), ge);
+				
+				if(ge instanceof Monster) {
+					_monsters.add((Monster) ge); 
+				}
 			}
 		}
 		
@@ -71,6 +77,14 @@ public class Maze implements Iterable<GameElement> {
 	
 	public Pacman getPacman() {
 		return pacman;
+	}
+
+	/**
+	 * Donne la liste des monstres
+	 * @return Liste des monstres
+	 */
+	public ArrayList<Monster> getMonsters() {
+		return _monsters;
 	}
 
 	@Override

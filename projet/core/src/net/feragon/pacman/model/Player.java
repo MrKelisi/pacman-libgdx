@@ -3,16 +3,12 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Player extends GameElement {
 	private Direction _direction;
-	private Direction _nextDirection;
 	private Vector2 _origin;
-	private int _points;
 	
 	public Player(Vector2 position, World world) {
 		super(position, world);
 		_origin = position;
 		_direction = Direction.LEFT;
-		_nextDirection = Direction.LEFT;
-		_points = 0;
 	}
 
 	@Override
@@ -39,17 +35,6 @@ public class Player extends GameElement {
 		_direction = direction;
 	}
 
-    /**
-     * Change la prochaine direction du joueur
-     * @param nextDirection Nouvelle direction
-     */
-	public void setNextDirection(Direction nextDirection) {
-		if(nextDirection == null) {
-			throw new NullPointerException("Direction null");
-		}
-	    _nextDirection = nextDirection;
-    }
-
 	/**
 	 * Donne la position d'origine du joueur
 	 * @return Position d'origine
@@ -59,25 +44,10 @@ public class Player extends GameElement {
 	}
 
 	/**
-	 * @return int Points du joueur
-	 */
-	public int points() {
-		return _points;
-	}
-
-	/**
-	 * Ajoute des points au joueur
-	 * @param points nombre de points
-	 */
-	public void addPoints(int points) {
-		_points += points;
-	}
-	
-	/**
 	 * Donne la prochaine position du joueur
 	 * @return Prochaine position
 	 */
-	private Vector2 getNextPosition(Direction direction) {
+	protected Vector2 getNextPosition(Direction direction) {
 		return _origin.cpy().add(direction.moveVector());
 	}
 	
@@ -87,11 +57,8 @@ public class Player extends GameElement {
 	public void move() {
 		Vector2 newPos = getNextPosition(_direction);
 
-        if(world.getMaze().get(newPos) instanceof Blocking) {
-        	newPos = _origin.cpy();
-        }
-        else {
-            if(newPos.x < 0) {
+        if(isElementAccessible(world.getMaze().get(newPos))) {
+        	if(newPos.x < 0) {
                 newPos.set(world.getWidth() - 1, newPos.y);
             }
             else if(newPos.x > world.getWidth() - 1) {
@@ -100,10 +67,8 @@ public class Player extends GameElement {
             
             setPosition(newPos);
         }
-        
-        Vector2 newDirectionNextPos = newPos.cpy().add(_nextDirection.moveVector());
-        if(!(world.getMaze().get(newDirectionNextPos) instanceof Blocking)) {
-        	_direction = _nextDirection;
+        else {
+        	newPos = _origin.cpy();
         }
 	}
 	
@@ -116,11 +81,19 @@ public class Player extends GameElement {
 		Vector2 newPos = getNextPosition(_direction);
 		Vector2 oldOrigin = _origin.cpy();
 
-        if(!(world.getMaze().get(newPos) instanceof Blocking)) {
+        if(isElementAccessible(world.getMaze().get(newPos))) {
         	Vector2 moveVector = direction().moveVector().scl(timeElapsed / World.TICK_TIME);
     		setPosition(_origin.cpy().add(moveVector));
         }
         
         _origin = oldOrigin;
+	}
+	
+	/**
+	 * @param ge Élément
+	 * @return Vrai si l'élément ne bloque pas le joueur
+	 */
+	protected boolean isElementAccessible(GameElement ge) {
+		return !(ge instanceof Blocking);
 	}
 }
