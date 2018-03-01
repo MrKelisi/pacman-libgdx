@@ -87,7 +87,10 @@ public class Player extends GameElement {
 	public void move() {
 		Vector2 newPos = getNextPosition(_direction);
 
-        if(world.getMaze().get(newPos) == null) {
+        if(world.getMaze().get(newPos) instanceof Blocking) {
+        	newPos = _origin.cpy();
+        }
+        else {
             if(newPos.x < 0) {
                 newPos.set(world.getWidth() - 1, newPos.y);
             }
@@ -97,12 +100,9 @@ public class Player extends GameElement {
             
             setPosition(newPos);
         }
-        else {
-            newPos = _origin.cpy();
-        }
         
         Vector2 newDirectionNextPos = newPos.cpy().add(_nextDirection.moveVector());
-        if(world.getMaze().get(newDirectionNextPos) == null) {
+        if(!(world.getMaze().get(newDirectionNextPos) instanceof Blocking)) {
         	_direction = _nextDirection;
         }
 	}
@@ -116,7 +116,7 @@ public class Player extends GameElement {
 		Vector2 newPos = getNextPosition(_direction);
 		Vector2 oldOrigin = _origin.cpy();
 
-        if(world.getMaze().get(newPos) == null) {
+        if(!(world.getMaze().get(newPos) instanceof Blocking)) {
         	Vector2 moveVector = direction().moveVector().scl(timeElapsed / World.TICK_TIME);
     		setPosition(_origin.cpy().add(moveVector));
         }

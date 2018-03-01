@@ -37,6 +37,11 @@ public class World implements Iterable<GameElement> {
 		if(_tickProgression >= TICK_TIME) {
 			_tickProgression %= TICK_TIME;
 			getMaze().getPacman().move();
+			
+			GameElement ge = getMaze().get(getMaze().getPacman().getPosition());
+			if(ge instanceof Interactable) {
+				((Interactable) ge).takenBy(getMaze().getPacman());
+			}
 		}
 		getMaze().getPacman().move(_tickProgression);
 	}
