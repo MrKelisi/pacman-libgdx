@@ -4,19 +4,12 @@ import java.util.HashMap;
 
 import com.badlogic.gdx.graphics.Texture;
 
-import net.feragon.pacman.model.Block;
-import net.feragon.pacman.model.CyanMonster;
-import net.feragon.pacman.model.GameElement;
-import net.feragon.pacman.model.Pacman;
-import net.feragon.pacman.model.PinkMonster;
-import net.feragon.pacman.model.Point;
-import net.feragon.pacman.model.RedMonster;
-import net.feragon.pacman.model.SuperPellet;
-import net.feragon.pacman.model.YellowMonster;
+import net.feragon.pacman.model.*;
 
 public class TextureFactory {
 	private static TextureFactory instance = null;
 	private HashMap<Class<? extends GameElement>, ITexturable> textures;
+	private Texture blank;
 	
 	private TextureFactory() {
 		textures = new HashMap<Class<? extends GameElement>, ITexturable>();
@@ -29,6 +22,7 @@ public class TextureFactory {
 		addSingleTexture(PinkMonster.class, "images/ghost2.png");
 		addSingleTexture(CyanMonster.class, "images/ghost3.png");
 		addSingleTexture(YellowMonster.class, "images/ghost4.png");
+		addSingleTexture(Blank.class, "images/dark.png");
 	}
 	
 	private void addSingleTexture(Class<? extends GameElement> c, String path) {

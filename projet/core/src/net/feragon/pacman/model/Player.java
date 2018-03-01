@@ -88,11 +88,11 @@ public class Player extends GameElement {
 		Vector2 newPos = getNextPosition(_direction);
 
         if(world.getMaze().get(newPos) == null) {
-            if(newPos.x == -1) {
-                setPosition(new Vector2(world.getWidth() - 1, newPos.y));
+            if(newPos.x < 0) {
+                newPos.set(world.getWidth() - 1, newPos.y);
             }
-            else if(newPos.x == world.getWidth()) {
-            	setPosition(new Vector2(0, newPos.y));
+            else if(newPos.x > world.getWidth() - 1) {
+            	newPos.set(0, newPos.y);
             }
             
             setPosition(newPos);

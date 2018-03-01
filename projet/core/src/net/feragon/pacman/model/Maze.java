@@ -15,7 +15,6 @@ public class Maze implements Iterable<GameElement> {
 	private HashMap<Class<? extends GameElement>, ArrayList<GameElement>> elements;
 	private Pacman pacman;
 	private ArrayList<Class<? extends GameElement>> displayOrder;
-	private ArrayList<GameElement> disposeElements;
 	
 	public Maze(World world) {
 		width = 0;
@@ -32,8 +31,6 @@ public class Maze implements Iterable<GameElement> {
 		displayOrder.add(CyanMonster.class);
 		displayOrder.add(YellowMonster.class);
 		displayOrder.add(Pacman.class);
-
-		disposeElements = new ArrayList<GameElement>();
 	}
 
 	public int getWidth() {
@@ -71,12 +68,14 @@ public class Maze implements Iterable<GameElement> {
 
 	public void eat(Vector2 pos) {
         ArrayList<GameElement> liste_points = elements.get(Point.class);
-        //liste_points.addAll(elements.get(SuperPellet.class));
+        liste_points.addAll(elements.get(SuperPellet.class));
 
 	    for(GameElement ge : liste_points) {
             if(ge.getPosition().equals(pos)) {
-                getPacman().addPoints(/*ge instanceof SuperPellet ? 100 : */10);
-                disposeElements.add(ge);
+                if(ge.isShown()) {
+                    getPacman().addPoints(ge instanceof SuperPellet ? 100 : 10);
+                    ge.setShow(false);
+                }
                 break;
             }
         }
@@ -97,7 +96,6 @@ public class Maze implements Iterable<GameElement> {
 					return iterator;
 				}
 				else {
-                    elements.get(Point.class).removeAll(disposeElements);
 					return null;
 				}
 			}

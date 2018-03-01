@@ -7,6 +7,7 @@ import net.feragon.pacman.view.TextureFactory;
 public abstract class GameElement {
 	private Vector2 position;
 	protected World world;
+	private boolean show = true;
 	
 	public GameElement(Vector2 position, World world) {
 		this.position = position;
@@ -28,8 +29,16 @@ public abstract class GameElement {
 	public float getHeight() {
 		return getTexture().getHeight();
 	}
+
+	public boolean isShown() {
+		return show;
+	}
+
+	public void setShow(boolean sh) {
+		show = sh;
+	}
 	
 	public Texture getTexture() {
-		return TextureFactory.getInstance().getTexture(getClass());
+		return TextureFactory.getInstance().getTexture(show ? getClass() : Blank.class);
 	}
 }
