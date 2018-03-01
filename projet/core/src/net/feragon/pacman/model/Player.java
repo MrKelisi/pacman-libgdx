@@ -33,6 +33,9 @@ public class Player extends GameElement {
 	 * @param direction Nouvelle direction
 	 */
 	public void setDirection(Direction direction) {
+		if(direction == null) {
+			throw new NullPointerException("Direction null");
+		}
 		_direction = direction;
 	}
 
@@ -41,6 +44,9 @@ public class Player extends GameElement {
      * @param nextDirection Nouvelle direction
      */
 	public void setNextDirection(Direction nextDirection) {
+		if(nextDirection == null) {
+			throw new NullPointerException("Direction null");
+		}
 	    _nextDirection = nextDirection;
     }
 
@@ -68,41 +74,18 @@ public class Player extends GameElement {
 	}
 	
 	/**
-	 * Donne le vecteur de déplacement
-	 * @return Vecteur de déplacement
-	 */
-	private Vector2 getMoveVector() {
-		switch(direction()) {
-	        case UP:    
-	        	return new Vector2(0, 1);
-	        	
-	        case RIGHT:
-	        	return new Vector2(1, 0);
-	        	
-	        case DOWN: 
-	        	return new Vector2(0, -1);
-	        	
-	        case LEFT: 
-	        	return new Vector2(-1, 0);
-		}
-		
-		return new Vector2(0, 0);
-	}
-	
-	/**
 	 * Donne la prochaine position du joueur
 	 * @return Prochaine position
 	 */
-	private Vector2 getNextPosition() {
-		return _origin.cpy().add(getMoveVector());
+	private Vector2 getNextPosition(Direction direction) {
+		return _origin.cpy().add(direction.moveVector());
 	}
 	
 	/**
 	 * Déplace le joueur d'une case complète
 	 */
 	public void move() {
-		Vector2 newPos = getNextPosition();
-		setDirection(_nextDirection);
+		Vector2 newPos = getNextPosition(_direction);
 
         if(world.getMaze().get(newPos) == null) {
             if(newPos.x == -1) {
@@ -114,6 +97,14 @@ public class Player extends GameElement {
             
             setPosition(newPos);
         }
+        
+        Vector2 newDirectionNextPos = newPos.cpy().add(_nextDirection.moveVector());
+        if(world.getMaze().get(newDirectionNextPos) == null) {
+        	_direction = _nextDirection;
+        }
+        else {
+        	_nextDirection = _direction;
+        }
 	}
 	
 	/**
@@ -122,11 +113,11 @@ public class Player extends GameElement {
 	 * @TODO: la recherche de position peut être optimisée
 	 */
 	public void move(float timeElapsed) {
-		Vector2 newPos = getNextPosition();
+		Vector2 newPos = getNextPosition(_direction);
 		Vector2 oldOrigin = _origin.cpy();
 
         if(world.getMaze().get(newPos) == null) {
-        	Vector2 moveVector = getMoveVector().scl(timeElapsed/world.TICK_TIME);
+        	Vector2 moveVector = direction().moveVector().scl(timeElapsed / World.TICK_TIME);
     		setPosition(_origin.cpy().add(moveVector));
         }
         
