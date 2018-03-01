@@ -21,19 +21,19 @@ public class PacmanInputProcessor implements InputProcessor {
 	public boolean keyDown(int keycode) {
 		switch (keycode) {
 			case Input.Keys.LEFT:
-                pacman.setDirection(Direction.LEFT);
+                pacman.setNextDirection(Direction.LEFT);
 				break;
 
             case Input.Keys.UP:
-                pacman.setDirection(Direction.UP);
+                pacman.setNextDirection(Direction.UP);
                 break;
 
             case Input.Keys.RIGHT:
-                pacman.setDirection(Direction.RIGHT);
+                pacman.setNextDirection(Direction.RIGHT);
                 break;
 
             case Input.Keys.DOWN:
-                pacman.setDirection(Direction.DOWN);
+                pacman.setNextDirection(Direction.DOWN);
                 break;
 				
 			default:

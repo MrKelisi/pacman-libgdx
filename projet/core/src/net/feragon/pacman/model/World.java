@@ -3,7 +3,7 @@ package net.feragon.pacman.model;
 import java.util.Iterator;
 
 public class World implements Iterable<GameElement> {
-	public final static float TICK_TIME = 0.5f;
+	public final static float TICK_TIME = 0.4f;
 	private float _tickProgression;
 	private Maze laby;
 	

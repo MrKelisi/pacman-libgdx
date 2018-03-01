@@ -36,6 +36,14 @@ public class Player extends GameElement {
 		_direction = direction;
 	}
 
+    /**
+     * Change la prochaine direction du joueur
+     * @param nextDirection Nouvelle direction
+     */
+	public void setNextDirection(Direction nextDirection) {
+	    _nextDirection = nextDirection;
+    }
+
 	/**
 	 * Donne la position d'origine du joueur
 	 * @return Position d'origine
@@ -94,6 +102,7 @@ public class Player extends GameElement {
 	 */
 	public void move() {
 		Vector2 newPos = getNextPosition();
+		setDirection(_nextDirection);
 
         if(world.getMaze().get(newPos) == null) {
             if(newPos.x == -1) {
@@ -117,7 +126,7 @@ public class Player extends GameElement {
 		Vector2 oldOrigin = _origin.cpy();
 
         if(world.getMaze().get(newPos) == null) {
-        	Vector2 moveVector = getMoveVector().scl(timeElapsed);
+        	Vector2 moveVector = getMoveVector().scl(timeElapsed/world.TICK_TIME);
     		setPosition(_origin.cpy().add(moveVector));
         }
         

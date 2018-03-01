@@ -6,14 +6,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-
 import net.feragon.pacman.model.AI;
 import net.feragon.pacman.model.GameElement;
 import net.feragon.pacman.model.Pacman;
 import net.feragon.pacman.model.World;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class WorldRenderer {
 	private SpriteBatch spriteBatch;
@@ -21,7 +17,6 @@ public class WorldRenderer {
 	private Vector2 size;
 	private OrthographicCamera camera;
     private BitmapFont font = new BitmapFont();
-	private Timer timer = new Timer();
 	
 	public WorldRenderer(final World world) {
 		spriteBatch = new SpriteBatch();

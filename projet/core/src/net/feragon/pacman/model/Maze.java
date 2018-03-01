@@ -49,7 +49,7 @@ public class Maze implements Iterable<GameElement> {
 
 		for(GameElement ge : liste_blocks) {
 		    if(ge.getPosition().equals(pos))
-		        return (Block) ge;
+                return (Block) ge;
         }
 		
 		return null;
