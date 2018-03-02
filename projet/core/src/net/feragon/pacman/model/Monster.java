@@ -18,6 +18,15 @@ public abstract class Monster extends Player {
 	}
 	
 	/**
+	 * @return Vrai si le monstre se trouve dans la maison
+	 */
+	private boolean isInHome() {
+		GameElement ge = world.getMaze().get(getPosition());
+		
+		return ge instanceof Blocking || ge instanceof Monster;
+	}
+	
+	/**
 	 * @return Vrai si le monstre se trouve sur une intersection
 	 */
 	private boolean isIntersection() {
@@ -64,7 +73,19 @@ public abstract class Monster extends Player {
 	public void move() {
 		super.move();
 		
-		if(isIntersection()) {
+		if(isInHome()) {
+			//TODO: sortir de la maison sans dépendre du niveau
+			if(getPosition().x <= 12) {
+				setDirection(Direction.RIGHT);
+			}
+			else if(getPosition().x >= 14) {
+				setDirection(Direction.LEFT);
+			}
+			else {
+				setDirection(Direction.UP);
+			}
+		}
+		else if(isIntersection()) {
 			setDirection(getNewDirection());
 		}
 	}
