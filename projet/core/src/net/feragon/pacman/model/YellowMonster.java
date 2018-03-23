@@ -1,7 +1,6 @@
 package net.feragon.pacman.model;
 
-import java.util.EnumSet;
-import java.util.Random;
+import net.feragon.pacman.model.Strategy;
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -12,9 +11,6 @@ public class YellowMonster extends Monster {
 
 	@Override
 	protected Direction getNewDirection() {
-		EnumSet<Direction> directions = getPossibleDirections();
-		Random random = new Random();
-		
-		return (Direction) directions.toArray()[random.nextInt(directions.size())];
+		return Strategy.getRandomDirection(getPossibleDirections());
 	}
 }
