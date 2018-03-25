@@ -29,4 +29,26 @@ public enum Direction {
 		
 		return new Vector2(0, 0);
 	}
+	
+	/**
+	 * Donne la direction inverse
+	 * @return Inverse
+	 */
+	Direction reverse() {
+		switch (this) {
+			case DOWN:
+				return UP;
+				
+			case LEFT:
+				return RIGHT;
+				
+			case RIGHT:
+				return LEFT;
+				
+			case UP:
+				return DOWN;
+		}
+		
+		return UP;
+	}
 }

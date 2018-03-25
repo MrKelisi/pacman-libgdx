@@ -65,21 +65,21 @@ public class Maze implements Iterable<GameElement> {
 			neighbors.put(Direction.RIGHT, new Vector2(0, pos.y));
 		}
 		else {
-			neighbors.put(Direction.RIGHT, new Vector2(width + 1, pos.y));
+			neighbors.put(Direction.RIGHT, new Vector2(pos.x + 1, pos.y));
 		}
 		
 		if(pos.y == 0) {
-			neighbors.put(Direction.UP, new Vector2(pos.x, height - 1));
+			neighbors.put(Direction.DOWN, new Vector2(pos.x, height - 1));
 		}
 		else {
-			neighbors.put(Direction.UP, new Vector2(pos.x, pos.y - 1));
+			neighbors.put(Direction.DOWN, new Vector2(pos.x, pos.y - 1));
 		}
 		
 		if(pos.y == width - 1) {
-			neighbors.put(Direction.DOWN, new Vector2(pos.x, 0));
+			neighbors.put(Direction.UP, new Vector2(pos.x, 0));
 		}
 		else {
-			neighbors.put(Direction.DOWN, new Vector2(pos.x, pos.y + 1));
+			neighbors.put(Direction.UP, new Vector2(pos.x, pos.y + 1));
 		}
 		
 		return neighbors;

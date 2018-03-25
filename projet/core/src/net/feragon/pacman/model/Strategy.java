@@ -40,8 +40,8 @@ public class Strategy {
 		ArrayList<Vector2> nextBlocks = new ArrayList<Vector2>();
 		HashSet<Vector2> closedBlocks = new HashSet<Vector2>();
 		nextBlocks.add(target);
-		
-		
+		closedBlocks.add(target);
+
 		while(!nextBlocks.isEmpty()) {
 			Vector2 block = nextBlocks.get(0);
 			
@@ -50,20 +50,22 @@ public class Strategy {
 			for(Direction direction : neighbors.keySet()) {
 				Vector2 nextBlock = neighbors.get(direction);
 				
-				if(nextBlock == monsterPosition) {
-					return direction;
+				if(nextBlock.equals(monsterPosition)) {
+					return direction.reverse();
+				}
+				
+				if(world.getMaze().get(nextBlock) instanceof Blocking) {
+					continue;
 				}
 				
 				if(closedBlocks.contains(nextBlock)) {
 					continue;
 				}
 				
-				if(!(world.getMaze().get(nextBlock) instanceof Blocking)) {
-					nextBlock.add(nextBlock);
-				}
+				nextBlocks.add(nextBlock);
+				closedBlocks.add(nextBlock);
 			}
 			
-			closedBlocks.add(block);
 			nextBlocks.remove(0);
 		}
 		
