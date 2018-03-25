@@ -9,7 +9,15 @@ public class RedMonster extends Monster {
 	
 	@Override
 	protected Direction getNewDirection() {
-		// TODO Auto-generated method stub
-		return Direction.LEFT;
+		try {
+			Direction direction = Strategy.flood(getPosition(), world.getMaze().getPacman().getPosition(), world);
+			if(direction == null) {
+				return world.getMaze().getPacman().nextDirection();
+			}
+			return direction;
+		}
+		catch (PathNotFoundException e) {
+			return Strategy.getRandomDirection(getPossibleDirections());
+		}
 	}
 }

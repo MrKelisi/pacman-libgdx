@@ -47,4 +47,13 @@ public class Pacman extends Player {
         	setDirection(_nextDirection);
         }
 	}
+
+	/**
+	 * @return Prochaine direction du joueur
+	 */
+	public Direction nextDirection() {
+		return _nextDirection;
+	}
+	
+	
 }

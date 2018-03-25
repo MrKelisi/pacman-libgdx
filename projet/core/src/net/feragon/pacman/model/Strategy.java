@@ -1,6 +1,9 @@
 package net.feragon.pacman.model;
 
+import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.Random;
 
 import com.badlogic.gdx.math.Vector2;
@@ -27,5 +30,43 @@ public class Strategy {
 	static Direction getRandomDirection(EnumSet<Direction> possibleDirections) {
 		Random random = new Random();
 		return (Direction) possibleDirections.toArray()[random.nextInt(possibleDirections.size())];
+	}
+	
+	static Direction flood(Vector2 monsterPosition, Vector2 target, World world) throws PathNotFoundException {
+		if(target == monsterPosition) {
+			return null;
+		}
+		
+		ArrayList<Vector2> nextBlocks = new ArrayList<Vector2>();
+		HashSet<Vector2> closedBlocks = new HashSet<Vector2>();
+		nextBlocks.add(target);
+		
+		
+		while(!nextBlocks.isEmpty()) {
+			Vector2 block = nextBlocks.get(0);
+			
+			EnumMap<Direction, Vector2> neighbors = world.getMaze().neighbors(block);
+			
+			for(Direction direction : neighbors.keySet()) {
+				Vector2 nextBlock = neighbors.get(direction);
+				
+				if(nextBlock == monsterPosition) {
+					return direction;
+				}
+				
+				if(closedBlocks.contains(nextBlock)) {
+					continue;
+				}
+				
+				if(!(world.getMaze().get(nextBlock) instanceof Blocking)) {
+					nextBlock.add(nextBlock);
+				}
+			}
+			
+			closedBlocks.add(block);
+			nextBlocks.remove(0);
+		}
+		
+		throw new PathNotFoundException("Chemin non trouvé");
 	}
 }

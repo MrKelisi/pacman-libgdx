@@ -1,6 +1,7 @@
 package net.feragon.pacman.model;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -43,6 +44,45 @@ public class Maze implements Iterable<GameElement> {
 
 	public int getHeight() {
 		return height;
+	}
+	
+	/**
+	 * Donne les cases voisine à la case donnée
+	 * @param pos Position de la case centrale, doit être dans la grille
+	 * @return Liste de voisins
+	 */
+	public EnumMap<Direction, Vector2> neighbors(Vector2 pos) {
+		EnumMap<Direction, Vector2> neighbors = new EnumMap<Direction, Vector2>(Direction.class);
+		
+		if(pos.x == 0) {
+			neighbors.put(Direction.LEFT, new Vector2(width - 1, pos.y));
+		}
+		else {
+			neighbors.put(Direction.LEFT, new Vector2(pos.x - 1, pos.y));
+		}
+		
+		if(pos.x == width - 1) {
+			neighbors.put(Direction.RIGHT, new Vector2(0, pos.y));
+		}
+		else {
+			neighbors.put(Direction.RIGHT, new Vector2(width + 1, pos.y));
+		}
+		
+		if(pos.y == 0) {
+			neighbors.put(Direction.UP, new Vector2(pos.x, height - 1));
+		}
+		else {
+			neighbors.put(Direction.UP, new Vector2(pos.x, pos.y - 1));
+		}
+		
+		if(pos.y == width - 1) {
+			neighbors.put(Direction.DOWN, new Vector2(pos.x, 0));
+		}
+		else {
+			neighbors.put(Direction.DOWN, new Vector2(pos.x, pos.y + 1));
+		}
+		
+		return neighbors;
 	}
 	
 	/**
