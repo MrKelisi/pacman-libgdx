@@ -44,7 +44,9 @@ public class WorldRenderer {
 		
 		spriteBatch.begin();
 		for(GameElement ge : world) {
-			spriteBatch.draw(ge.getTexture(), ge.getPosition().x * size.x, (ge.getPosition().y+2) * size.y, size.x, size.y);
+			if(ge.isShown()) {
+				spriteBatch.draw(TextureFactory.getInstance().getTexture(ge), ge.getPosition().x * size.x, (ge.getPosition().y+2) * size.y, size.x, size.y);
+			}
 		}
 
         font.draw(spriteBatch, "Score : " + world.getMaze().getPacman().points(), 8, 22);

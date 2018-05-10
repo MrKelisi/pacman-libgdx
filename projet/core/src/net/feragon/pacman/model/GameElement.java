@@ -1,8 +1,6 @@
 package net.feragon.pacman.model;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import net.feragon.pacman.view.TextureFactory;
 
 public abstract class GameElement {
 	private Vector2 position;
@@ -22,23 +20,11 @@ public abstract class GameElement {
 		this.position = position;
 	}
 
-	public float getWidth() {
-		return getTexture().getWidth();
-	}
-	
-	public float getHeight() {
-		return getTexture().getHeight();
-	}
-
 	public boolean isShown() {
 		return show;
 	}
 
 	public void setShow(boolean sh) {
 		show = sh;
-	}
-	
-	public Texture getTexture() { //TODO: put this in view
-		return TextureFactory.getInstance().getTexture(show ? getClass() : Blank.class, this);
 	}
 }

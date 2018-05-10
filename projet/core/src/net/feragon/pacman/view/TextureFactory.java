@@ -56,6 +56,15 @@ public class TextureFactory {
 	}
 	
 	/**
+ 	 * Donne la texture de l'objet demandé
+ 	 * @param instance Instance de l'objet
+     * @return Texture
+	 */
+	public <T extends GameElement> Texture getTexture(T instance) {
+		return textures.get(instance.getClass()).getTexture(instance);
+	}
+	
+	/**
 	 * Donne l'object ITexturable associé à la classe
 	 * @param c Classe de l'élément
 	 * @return ITexturable
