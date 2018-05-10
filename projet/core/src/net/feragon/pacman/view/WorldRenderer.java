@@ -28,14 +28,12 @@ public class WorldRenderer {
 		
 		camera.setToOrtho(false, width, height);
 		camera.position.set(width/2, height/2, 0);
-		
-		PacmanTexture pacmanTexture = (PacmanTexture) TextureFactory.getInstance().getITexturable(Pacman.class);
-		pacmanTexture.setPacman(world.getMaze().getPacman());
 	}
 	
 	public void render(float timeElapsed) {
 		world.update(timeElapsed);
 		
+		//TODO: remove
 		PacmanTexture pacmanTexture = (PacmanTexture) TextureFactory.getInstance().getITexturable(Pacman.class);
 		pacmanTexture.update(timeElapsed);
 		

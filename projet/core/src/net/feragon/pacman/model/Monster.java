@@ -5,6 +5,9 @@ import java.util.EnumSet;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Monster extends Player {
+	public static final double WEAK_TIME = 10;
+	private double _weakTime;
+	
 	public Monster(Vector2 position, World world) {
 		super(position, world);
 	}
@@ -89,6 +92,22 @@ public abstract class Monster extends Player {
 			setDirection(getNewDirection());
 		}
 	}
+
+	public double getWeakTime() {
+		return _weakTime;
+	}
+
+	public void setWeak() {
+		_weakTime = WEAK_TIME;
+	}
 	
+	private void resetWeak() {
+		_weakTime = 0;
+	}
 	
+	public void update(double timeElapsed) {
+		if(_weakTime > 0) {
+			_weakTime -= timeElapsed;
+		}
+	}
 }

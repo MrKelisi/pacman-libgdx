@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Texture;
 
+import net.feragon.pacman.model.GameElement;
+
 public class AnimatedTexture implements ITexturable {
 	private ArrayList<Texture> _textures;
 	private double _fps;
@@ -51,9 +53,12 @@ public class AnimatedTexture implements ITexturable {
 	}
 
 	@Override
-	public Texture getTexture() {
+	public Texture getTexture(GameElement element) {
 		// TODO Auto-generated method stub
 		return _textures.get((int) Math.floor(_progression));
 	}
 
+	public void setFps(double fps) {
+		this._fps = fps;
+	}
 }

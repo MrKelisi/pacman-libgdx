@@ -18,10 +18,10 @@ public class TextureFactory {
 		addSingleTexture(Block.class, "images/bloc.png");
 		addSingleTexture(Point.class, "images/pellet.png");
 		addSingleTexture(SuperPellet.class, "images/superpellet.png");
-		addSingleTexture(RedMonster.class, "images/ghost1.png");
-		addSingleTexture(PinkMonster.class, "images/ghost2.png");
-		addSingleTexture(CyanMonster.class, "images/ghost3.png");
-		addSingleTexture(YellowMonster.class, "images/ghost4.png");
+		textures.put(RedMonster.class, new MonsterTexture(new Texture("images/ghost1.png")));
+		textures.put(PinkMonster.class, new MonsterTexture(new Texture("images/ghost2.png")));
+		textures.put(CyanMonster.class, new MonsterTexture(new Texture("images/ghost3.png")));
+		textures.put(YellowMonster.class, new MonsterTexture(new Texture("images/ghost4.png")));
 		addSingleTexture(Blank.class, "images/dark.png");
 	}
 	
@@ -51,8 +51,8 @@ public class TextureFactory {
 		}
 	}
 	
-	public Texture getTexture(Class<? extends GameElement> c) {
-		return textures.get(c).getTexture();
+	public Texture getTexture(Class<? extends GameElement> c, GameElement ge) {
+		return textures.get(c).getTexture(ge);
 	}
 	
 	/**

@@ -38,7 +38,7 @@ public abstract class GameElement {
 		show = sh;
 	}
 	
-	public Texture getTexture() {
-		return TextureFactory.getInstance().getTexture(show ? getClass() : Blank.class);
+	public Texture getTexture() { //TODO: put this in view
+		return TextureFactory.getInstance().getTexture(show ? getClass() : Blank.class, this);
 	}
 }

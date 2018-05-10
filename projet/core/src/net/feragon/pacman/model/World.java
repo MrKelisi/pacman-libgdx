@@ -49,6 +49,7 @@ public class World implements Iterable<GameElement> {
 		getMaze().getPacman().move(_tickProgression);
 		for(Monster monster : getMaze().getMonsters()) {
 			monster.move(_tickProgression);
+			monster.update(timeElapsed);
 		}
 	}
 }

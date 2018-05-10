@@ -2,6 +2,8 @@ package net.feragon.pacman.view;
 
 import com.badlogic.gdx.graphics.Texture;
 
+import net.feragon.pacman.model.GameElement;
+
 public class SingleTexture implements ITexturable {
 	private Texture _texture;
 	
@@ -19,7 +21,7 @@ public class SingleTexture implements ITexturable {
 
 
 	@Override
-	public Texture getTexture() {
+	public Texture getTexture(GameElement element) {
 		return _texture;
 	}
 

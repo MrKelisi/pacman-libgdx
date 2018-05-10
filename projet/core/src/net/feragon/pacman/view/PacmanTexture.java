@@ -5,15 +5,14 @@ import java.util.EnumMap;
 import com.badlogic.gdx.graphics.Texture;
 
 import net.feragon.pacman.model.Direction;
+import net.feragon.pacman.model.GameElement;
 import net.feragon.pacman.model.Pacman;
 
 public class PacmanTexture implements ITexturable {
 	private EnumMap<Direction, AnimatedTexture> _textures;
-	private Pacman _pacman;
-	
+
 	public PacmanTexture() {
         int fps = 7;
-		_pacman = null;
 		_textures = new EnumMap<Direction, AnimatedTexture>(Direction.class);
 		
 		_textures.put(Direction.LEFT, new AnimatedTexture(
@@ -48,18 +47,11 @@ public class PacmanTexture implements ITexturable {
 			throw new IllegalStateException("Toutes les directions ne sont pas définies");
 		}
 	}
-	
-	/**
-	 * Définit le pacman à afficher
-	 * @param pacman
-	 */
-	public void setPacman(Pacman pacman) {
-		_pacman = pacman;
-	}
 
 	/**
 	 * Met à jour les textures 
 	 * @param timeElapsed Temps écoulé depuis la dernière mise à jour 
+	 * @TODO mettre à la bonne place
 	 */
 	public void update(double timeElapsed) {
 		for(AnimatedTexture texture : _textures.values()) {
@@ -75,8 +67,12 @@ public class PacmanTexture implements ITexturable {
 	}
 
 	@Override
-	public Texture getTexture() {
-		return _textures.get(_pacman.direction()).getTexture();
+	public Texture getTexture(GameElement element) {
+		if(!(element instanceof Pacman)) {
+			throw new IllegalArgumentException("L'élément doit être une instance de Pacman");
+		}
+		
+		return _textures.get(((Pacman) element).direction()).getTexture(null);
 	}
 
 }

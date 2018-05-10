@@ -17,5 +17,8 @@ public class SuperPellet extends GameElement implements Interactable {
 		
 		pacman.addPoints(POINTS);
 		setShow(false);
+		for(Monster monster : world.getMaze().getMonsters()) {
+			monster.setWeak();
+		}
 	}
 }
