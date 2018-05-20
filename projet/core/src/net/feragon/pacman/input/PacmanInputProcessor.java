@@ -3,23 +3,29 @@ package net.feragon.pacman.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import net.feragon.pacman.PacmanGDX;
 import net.feragon.pacman.model.Direction;
 import net.feragon.pacman.model.Pacman;
 
 public class PacmanInputProcessor implements InputProcessor {
 	private Pacman pacman;
+	private PacmanGDX game;
 	
-	public PacmanInputProcessor(Pacman pacman) {
+	public PacmanInputProcessor(Pacman pacman, PacmanGDX game) {
 		if(pacman == null) {
 			throw new NullPointerException("Pacman null");
 		}
 		
 		this.pacman = pacman;
+		this.game = game;
 	}
 	
 	@Override
 	public boolean keyDown(int keycode) {
 		switch (keycode) {
+			case Input.Keys.ESCAPE:
+				game.setUpTitleScreen();
+				break;
 			case Input.Keys.LEFT:
                 pacman.setNextDirection(Direction.LEFT);
 				break;
