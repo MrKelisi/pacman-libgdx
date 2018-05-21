@@ -19,18 +19,23 @@ public class PacmanGDX extends Game {
 
 
 	public void setUpTitleScreen() {
-		if(this.screen != null)
+		if(this.screen != null) {
 			this.getScreen().dispose();
-		this.setScreen(new TitleScreen(this));
+		}
+		TitleScreen ts = new TitleScreen(this);
+		this.setScreen(ts);
 
 		indexMultiplexer.clear();
-		//indexMultiplexer.addProcessor(new TitleInputProcessor(this));
-		//Gdx.input.setInputProcessor(indexMultiplexer);
+		indexMultiplexer.addProcessor(ts.getStage());
+		indexMultiplexer.addProcessor(new TitleInputProcessor(this));
+		Gdx.input.setInputProcessor(indexMultiplexer);
+
 	}
 
 	public void setUpGameScreen() {
-		if(this.screen != null)
+		if(this.screen != null) {
 			this.getScreen().dispose();
+		}
 		this.setScreen(new GameScreen(this));
 
 		GameScreen gs = (GameScreen) this.getScreen();
@@ -43,34 +48,4 @@ public class PacmanGDX extends Game {
 	public void create () {
 		setUpTitleScreen();
 	}
-
-	@Override
-	public void render () {
-		super.render();
-
-	}
-	
-	@Override
-	public void dispose () {
-	}
-
-	@Override
-	public void resize(int width, int height) {
-		super.resize(width, height);
-
-	}
-
-	@Override
-	public void pause() {
-		super.pause();
-
-	}
-
-	@Override
-	public void resume() {
-		super.resume();
-
-	}
-	
-	
 }

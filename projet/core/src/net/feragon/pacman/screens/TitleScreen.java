@@ -130,4 +130,8 @@ public class TitleScreen implements Screen {
     public void dispose() {
         _stage.dispose();
     }
+
+	public Stage getStage() {
+		return _stage;
+	}
 }
