@@ -50,7 +50,10 @@ public class World implements Iterable<GameElement> {
 			for(Monster monster : getMaze().getMonsters()) {
 				monster.move();
 
-				if(monster.getPosition().equals(pacmanPos)) {
+				Vector2 v = monster.getPosition().cpy().sub(pacmanPos);
+				boolean crossedWay = (v.x + v.y == 1 && v.x * v.y == 0 && monster.direction().equals(getMaze().getPacman().direction().reverse()));
+
+				if(monster.getPosition().equals(pacmanPos) || crossedWay) {
 					if(monster.getWeakTime() <= 0) {
 						getMaze().getPacman().takeALife();
 						getMaze().getPacman().addPoints(-200);

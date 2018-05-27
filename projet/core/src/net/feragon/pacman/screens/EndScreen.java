@@ -31,7 +31,7 @@ public class EndScreen implements Screen {
 
         Label.LabelStyle titleStyle = new Label.LabelStyle();
         titleStyle.font = font;
-        titleStyle.fontColor = new Color(0,255,40,255);
+        titleStyle.fontColor = new Color(255,255,0,255);
 
         title = new Label(message, titleStyle);
         title.setAlignment(Align.center);
