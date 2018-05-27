@@ -31,7 +31,7 @@ public class WorldRenderer {
 		camera.position.set(width/2, height/2, 0);
 	}
 	
-	public void render(float timeElapsed) throws IllegalStateException,InvalidValue {
+	public void render(float timeElapsed) throws Exception {
 		world.update(timeElapsed);
 		
 		//TODO: remove

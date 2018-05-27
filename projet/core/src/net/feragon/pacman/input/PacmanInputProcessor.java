@@ -24,13 +24,17 @@ public class PacmanInputProcessor implements InputProcessor {
 	
 	@Override
 	public boolean keyDown(int keycode) {
-		if(gameMode != 'a')
+
+		if(keycode == Input.Keys.ESCAPE) {
+			game.setUpTitleScreen();
+			return true;
+		}
+
+		if(gameMode != 'a') {
 			return false;
+		}
 
 		switch (keycode) {
-			case Input.Keys.ESCAPE:
-				game.setUpTitleScreen();
-				break;
 			case Input.Keys.LEFT:
                 pacman.setNextDirection(Direction.LEFT);
 				break;

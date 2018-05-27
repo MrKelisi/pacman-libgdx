@@ -22,7 +22,7 @@ public class EndScreen implements Screen {
     private TextButton replayButton;
     private TextButton exitButton;
 
-    public EndScreen(PacmanGDX game, int score) {
+    public EndScreen(PacmanGDX game, String message) {
         _game = game;
         _stage = new Stage();
 
@@ -33,19 +33,19 @@ public class EndScreen implements Screen {
         titleStyle.font = font;
         titleStyle.fontColor = new Color(0,255,40,255);
 
-        title = new Label("You won!\nYour score is "+score, titleStyle);
+        title = new Label(message, titleStyle);
         title.setAlignment(Align.center);
         title.setY(Gdx.graphics.getHeight()*2/3);
         title.setWidth(Gdx.graphics.getWidth());
         _stage.addActor(title);
 
 
-        TextButton.TextButtonStyle playButtonStyle = new TextButton.TextButtonStyle();
-        playButtonStyle.font = font;
-        playButtonStyle.fontColor = new Color(255, 255, 255, 255);
-        playButtonStyle.overFontColor = new Color(0, 0, 255, 255);
+        TextButton.TextButtonStyle replayButtonStyle = new TextButton.TextButtonStyle();
+        replayButtonStyle.font = font;
+        replayButtonStyle.fontColor = new Color(255, 255, 255, 255);
+        replayButtonStyle.overFontColor = new Color(0, 50, 255, 255);
 
-        replayButton = new TextButton("Replay?", playButtonStyle);
+        replayButton = new TextButton("Replay?", replayButtonStyle);
         replayButton.setWidth(Gdx.graphics.getWidth()/2);
         replayButton.setPosition(Gdx.graphics.getWidth()/2-replayButton.getWidth()/2,Gdx.graphics.getHeight()/2-replayButton.getHeight()/2);
         replayButton.addListener(new InputListener(){
@@ -80,16 +80,6 @@ public class EndScreen implements Screen {
             }
         });
         _stage.addActor(exitButton);
-    }
-
-    public Label getTitle() {
-        return title;
-    }
-    public TextButton getPlayButton() {
-        return replayButton;
-    }
-    public TextButton getExitButton() {
-        return exitButton;
     }
 
     @Override

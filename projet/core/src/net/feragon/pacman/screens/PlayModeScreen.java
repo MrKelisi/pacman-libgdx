@@ -21,9 +21,6 @@ public class PlayModeScreen implements Screen {
     private PacmanGDX _game;
 
     private Label title;
-    private TextButton playButton;
-    private TextButton exitButton;
-
     private Image arrows;
     private Image cursor;
 
@@ -76,16 +73,6 @@ public class PlayModeScreen implements Screen {
         });
         _stage.addActor(cursor);
 
-    }
-
-    public Label getTitle() {
-        return title;
-    }
-    public TextButton getPlayButton() {
-        return playButton;
-    }
-    public TextButton getExitButton() {
-        return exitButton;
     }
 
     @Override

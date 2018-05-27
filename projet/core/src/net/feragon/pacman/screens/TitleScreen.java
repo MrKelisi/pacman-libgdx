@@ -44,7 +44,7 @@ public class TitleScreen implements Screen {
         TextButton.TextButtonStyle playButtonStyle = new TextButton.TextButtonStyle();
         playButtonStyle.font = font;
         playButtonStyle.fontColor = new Color(255, 255, 255, 255);
-        playButtonStyle.overFontColor = new Color(0, 0, 255, 255);
+        playButtonStyle.overFontColor = new Color(0, 50, 255, 255);
 
         playButton = new TextButton("Play!", playButtonStyle);
         playButton.setWidth(Gdx.graphics.getWidth()/2);
@@ -81,16 +81,6 @@ public class TitleScreen implements Screen {
             }
         });
         _stage.addActor(exitButton);
-    }
-
-    public Label getTitle() {
-        return title;
-    }
-    public TextButton getPlayButton() {
-        return playButton;
-    }
-    public TextButton getExitButton() {
-        return exitButton;
     }
 
     @Override

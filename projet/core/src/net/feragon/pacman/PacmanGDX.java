@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 
+import net.feragon.pacman.input.GameModeInputProcessor;
 import net.feragon.pacman.input.PacmanInputProcessor;
 import net.feragon.pacman.input.MenuInputProcessor;
 import net.feragon.pacman.screens.EndScreen;
@@ -46,11 +47,11 @@ public class PacmanGDX extends Game {
 		Gdx.input.setInputProcessor(indexMultiplexer);
 	}
 
-	public void setUpEndScreen(int score) {
+	public void setUpEndScreen(String message) {
 		if(this.screen != null) {
 			this.getScreen().dispose();
 		}
-		EndScreen es = new EndScreen(this, score);
+		EndScreen es = new EndScreen(this, message);
 		this.setScreen(es);
 
 		indexMultiplexer.clear();
@@ -69,7 +70,7 @@ public class PacmanGDX extends Game {
 
 		indexMultiplexer.clear();
 		indexMultiplexer.addProcessor(pms.getStage());
-		//indexMultiplexer.addProcessor(new PlayModeInputProcessor(this));
+		indexMultiplexer.addProcessor(new GameModeInputProcessor(this));
 		Gdx.input.setInputProcessor(indexMultiplexer);
 
 	}

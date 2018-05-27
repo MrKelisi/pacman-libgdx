@@ -1,11 +1,9 @@
 package net.feragon.pacman.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import net.feragon.pacman.PacmanGDX;
 import net.feragon.pacman.model.World;
 import net.feragon.pacman.view.WorldRenderer;
-import org.omg.CORBA.DynAnyPackage.InvalidValue;
 
 public class GameScreen implements Screen {
 	private WorldRenderer renderer;
@@ -27,11 +25,8 @@ public class GameScreen implements Screen {
 		try {
 			renderer.render(elapsedTime);
 
-		} catch(IllegalStateException ise) {
-			game.setUpTitleScreen();
-
-		} catch (InvalidValue iv) {
-			game.setUpEndScreen(world.getMaze().getPacman().points());
+		} catch (Exception message) {
+			game.setUpEndScreen(message.getMessage());
 		}
 	}
 	

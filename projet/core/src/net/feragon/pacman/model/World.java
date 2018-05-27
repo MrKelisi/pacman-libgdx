@@ -39,7 +39,7 @@ public class World implements Iterable<GameElement> {
 	 * Fait avancer le monde !
 	 * @param timeElapsed Temps écoulé depuis la dernière mise à jour
 	 */
-	public void update(float timeElapsed) throws IllegalStateException,InvalidValue {
+	public void update(float timeElapsed) throws Exception {
 		_tickProgression += timeElapsed; 
 
 		if(_tickProgression >= TICK_TIME) {
@@ -51,11 +51,19 @@ public class World implements Iterable<GameElement> {
 				monster.move();
 
 				if(monster.getPosition().equals(pacmanPos)) {
-					getMaze().getPacman().takeALife();
-					if(getMaze().getPacman().getLifes() < 0)
-						throw new IllegalStateException("Pacman n'a plus de vie");
-					else
-						resetPositions();
+					if(monster.getWeakTime() <= 0) {
+						getMaze().getPacman().takeALife();
+						getMaze().getPacman().addPoints(-200);
+
+						if (getMaze().getPacman().getLifes() < 0)
+							throw new Exception("You lost!");
+						else
+							resetPositions();
+					}
+					else {
+						getMaze().getPacman().addPoints(500);
+						monster.resetPosition();
+					}
 				}
 			}
 			
