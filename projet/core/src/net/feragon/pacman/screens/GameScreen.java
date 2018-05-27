@@ -2,16 +2,19 @@ package net.feragon.pacman.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import net.feragon.pacman.PacmanGDX;
 import net.feragon.pacman.model.World;
 import net.feragon.pacman.view.WorldRenderer;
 
 public class GameScreen implements Screen {
 	private WorldRenderer renderer;
 	private World world;
+	private PacmanGDX game;
 	
-	public GameScreen(Game game) {
+	public GameScreen(PacmanGDX game) {
 		world = new World();
 		renderer = new WorldRenderer(world);
+		this.game = game;
 	}
 
 	public void show() {
@@ -20,7 +23,11 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float elapsedTime) {
-		renderer.render(elapsedTime);
+		try {
+			renderer.render(elapsedTime);
+		} catch(IllegalStateException ise) {
+			game.setUpTitleScreen();
+		}
 	}
 	
 	public void resize(int width, int height) {

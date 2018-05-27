@@ -30,7 +30,7 @@ public class WorldRenderer {
 		camera.position.set(width/2, height/2, 0);
 	}
 	
-	public void render(float timeElapsed) {
+	public void render(float timeElapsed) throws IllegalStateException {
 		world.update(timeElapsed);
 		
 		//TODO: remove
@@ -50,6 +50,8 @@ public class WorldRenderer {
 		}
 
         font.draw(spriteBatch, "Score : " + world.getMaze().getPacman().points(), 8, 22);
+
+		font.draw(spriteBatch, "Remaining lifes : " + world.getMaze().getPacman().getLifes(), 320, 22);
 		
 		spriteBatch.end();
 	}

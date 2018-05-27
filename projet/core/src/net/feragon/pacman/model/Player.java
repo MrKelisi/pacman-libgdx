@@ -4,10 +4,12 @@ import com.badlogic.gdx.math.Vector2;
 public class Player extends GameElement {
 	private Direction _direction;
 	private Vector2 _origin;
+	private Vector2 _startPos;
 	
 	public Player(Vector2 position, World world) {
 		super(position, world);
 		_origin = position;
+		_startPos = new Vector2(0,0);
 		_direction = Direction.LEFT;
 	}
 
@@ -87,6 +89,21 @@ public class Player extends GameElement {
         }
         
         _origin = oldOrigin;
+	}
+
+	/**
+	 * Initialise la position de départ du joueur comme défini dans le level
+	 */
+	public void setStartPos() {
+		_startPos = _origin;
+	}
+
+	/**
+	 * Replace le joueur à sa position de départ
+	 */
+	public void resetPosition() {
+		setPosition(_startPos);
+		_direction = Direction.LEFT;
 	}
 	
 	/**

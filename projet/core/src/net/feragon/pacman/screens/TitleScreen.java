@@ -17,13 +17,13 @@ import net.feragon.pacman.PacmanGDX;
 public class TitleScreen implements Screen {
 
     private Stage _stage;
-    private Game _game;
+    private PacmanGDX _game;
 
     private Label title;
     private TextButton playButton;
     private TextButton exitButton;
 
-    public TitleScreen(Game game) {
+    public TitleScreen(PacmanGDX game) {
         _game = game;
         _stage = new Stage();
 
@@ -52,7 +52,7 @@ public class TitleScreen implements Screen {
         playButton.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                ((PacmanGDX) _game).setUpGameScreen();
+                _game.setUpGameScreen();
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

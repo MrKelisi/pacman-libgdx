@@ -1,5 +1,7 @@
 package net.feragon.pacman.model;
 
+import com.badlogic.gdx.math.Vector2;
+
 import java.util.Iterator;
 
 public class World implements Iterable<GameElement> {
@@ -9,6 +11,11 @@ public class World implements Iterable<GameElement> {
 	
 	public World() {
 		laby = new Maze(this);
+
+		laby.getPacman().setStartPos();
+		for(Monster monster: laby.getMonsters()) {
+			monster.setStartPos();
+		}
 	}
 
 	public int getWidth() {
@@ -31,14 +38,24 @@ public class World implements Iterable<GameElement> {
 	 * Fait avancer le monde !
 	 * @param timeElapsed Temps écoulé depuis la dernière mise à jour
 	 */
-	public void update(float timeElapsed) {
+	public void update(float timeElapsed) throws IllegalStateException {
 		_tickProgression += timeElapsed; 
-		
+
 		if(_tickProgression >= TICK_TIME) {
 			_tickProgression %= TICK_TIME;
 			getMaze().getPacman().move();
+			Vector2 pacmanPos = getMaze().getPacman().getPosition();
+
 			for(Monster monster : getMaze().getMonsters()) {
 				monster.move();
+
+				if(monster.getPosition().equals(pacmanPos)) {
+					getMaze().getPacman().takeALife();
+					if(getMaze().getPacman().getLifes() < 0)
+						throw new IllegalStateException("Pacman n'a plus de vie");
+					else
+						resetPositions();
+				}
 			}
 			
 			GameElement ge = getMaze().get(getMaze().getPacman().getPosition());
@@ -50,6 +67,13 @@ public class World implements Iterable<GameElement> {
 		for(Monster monster : getMaze().getMonsters()) {
 			monster.move(_tickProgression);
 			monster.update(timeElapsed);
+		}
+	}
+
+	public void resetPositions() {
+		getMaze().getPacman().resetPosition();
+		for(Monster monster : getMaze().getMonsters()) {
+			monster.resetPosition();
 		}
 	}
 }

@@ -5,11 +5,13 @@ import com.badlogic.gdx.math.Vector2;
 public class Pacman extends Player {
 	private Direction _nextDirection;
 	private int _points;
+	private int _lifes;
 	
 	public Pacman(Vector2 position, World world) {
 		super(position, world);
 		_nextDirection = direction();
 		_points = 0;
+		_lifes = 2;
 	}
 	
 	/**
@@ -55,5 +57,11 @@ public class Pacman extends Player {
 		return _nextDirection;
 	}
 	
-	
+	public int getLifes() {
+		return _lifes;
+	}
+
+	public void takeALife() {
+		_lifes--;
+	}
 }

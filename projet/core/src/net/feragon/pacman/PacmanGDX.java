@@ -36,9 +36,9 @@ public class PacmanGDX extends Game {
 		if(this.screen != null) {
 			this.getScreen().dispose();
 		}
-		this.setScreen(new GameScreen(this));
+		GameScreen gs = new GameScreen(this);
+		this.setScreen(gs);
 
-		GameScreen gs = (GameScreen) this.getScreen();
 		indexMultiplexer.clear();
 		indexMultiplexer.addProcessor(new PacmanInputProcessor(gs.getWorld().getMaze().getPacman(), this));
 		Gdx.input.setInputProcessor(indexMultiplexer);
