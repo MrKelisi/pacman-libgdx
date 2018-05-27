@@ -5,5 +5,5 @@ public interface Interactable {
 	 * Méthode appelée lorsque que le joueur arrive sur l'élément
 	 * @param pacman Joueur
 	 */
-	void takenBy(Pacman pacman);
+	boolean takenBy(Pacman pacman);
 }

@@ -1,6 +1,7 @@
 package net.feragon.pacman.model;
 
 import com.badlogic.gdx.math.Vector2;
+import org.omg.CORBA.DynAnyPackage.InvalidValue;
 
 import java.util.Iterator;
 
@@ -38,7 +39,7 @@ public class World implements Iterable<GameElement> {
 	 * Fait avancer le monde !
 	 * @param timeElapsed Temps écoulé depuis la dernière mise à jour
 	 */
-	public void update(float timeElapsed) throws IllegalStateException {
+	public void update(float timeElapsed) throws IllegalStateException,InvalidValue {
 		_tickProgression += timeElapsed; 
 
 		if(_tickProgression >= TICK_TIME) {
@@ -60,7 +61,8 @@ public class World implements Iterable<GameElement> {
 			
 			GameElement ge = getMaze().get(getMaze().getPacman().getPosition());
 			if(ge instanceof Interactable) {
-				((Interactable) ge).takenBy(getMaze().getPacman());
+				if(((Interactable) ge).takenBy(getMaze().getPacman()))
+					getMaze().decreaseRemainingPellets();
 			}
 		}
 		getMaze().getPacman().move(_tickProgression);

@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import net.feragon.pacman.model.GameElement;
 import net.feragon.pacman.model.Pacman;
 import net.feragon.pacman.model.World;
+import org.omg.CORBA.DynAnyPackage.InvalidValue;
 
 public class WorldRenderer {
 	private SpriteBatch spriteBatch;
@@ -30,7 +31,7 @@ public class WorldRenderer {
 		camera.position.set(width/2, height/2, 0);
 	}
 	
-	public void render(float timeElapsed) throws IllegalStateException {
+	public void render(float timeElapsed) throws IllegalStateException,InvalidValue {
 		world.update(timeElapsed);
 		
 		//TODO: remove

@@ -1,14 +1,15 @@
 package net.feragon.pacman.input;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import net.feragon.pacman.PacmanGDX;
 
-public class TitleInputProcessor implements InputProcessor {
+public class MenuInputProcessor implements InputProcessor {
 
     private PacmanGDX _game;
 
-    public TitleInputProcessor(PacmanGDX game) {
+    public MenuInputProcessor(PacmanGDX game) {
         _game = game;
     }
 
@@ -16,10 +17,10 @@ public class TitleInputProcessor implements InputProcessor {
     public boolean keyDown(int keycode) {
         switch (keycode) {
             case Input.Keys.ESCAPE:
-                System.exit(0);
+                Gdx.app.exit();
                 break;
             case Input.Keys.ENTER:
-                _game.setUpGameScreen();
+                _game.setUpPlayModeScreen();
                 break;
 
             default:

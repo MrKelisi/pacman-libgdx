@@ -10,12 +10,13 @@ public class Point extends GameElement implements Interactable {
 	}
 
 	@Override
-	public void takenBy(Pacman pacman) {
+	public boolean takenBy(Pacman pacman) {
 		if(!isShown()) {
-			return;
+			return false;
 		}
 		
 		pacman.addPoints(POINTS);
 		setShow(false);
+		return true;
 	}
 }

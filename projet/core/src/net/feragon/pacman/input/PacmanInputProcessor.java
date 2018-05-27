@@ -9,19 +9,24 @@ import net.feragon.pacman.model.Pacman;
 
 public class PacmanInputProcessor implements InputProcessor {
 	private Pacman pacman;
+	private char gameMode;
 	private PacmanGDX game;
 	
-	public PacmanInputProcessor(Pacman pacman, PacmanGDX game) {
+	public PacmanInputProcessor(Pacman pacman, char gameMode, PacmanGDX game) {
 		if(pacman == null) {
 			throw new NullPointerException("Pacman null");
 		}
 		
 		this.pacman = pacman;
+		this.gameMode = gameMode;
 		this.game = game;
 	}
 	
 	@Override
 	public boolean keyDown(int keycode) {
+		if(gameMode != 'a')
+			return false;
+
 		switch (keycode) {
 			case Input.Keys.ESCAPE:
 				game.setUpTitleScreen();
@@ -62,6 +67,9 @@ public class PacmanInputProcessor implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		if(gameMode != 'c')
+			return false;
+
 		float halfWidth = Gdx.graphics.getWidth() / 2;
 		float halfHeight = Gdx.graphics.getHeight() / 2;
 		screenX -= halfWidth;

@@ -1,6 +1,5 @@
 package net.feragon.pacman.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -14,16 +13,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 import net.feragon.pacman.PacmanGDX;
 
-public class TitleScreen implements Screen {
+public class EndScreen implements Screen {
 
     private Stage _stage;
     private PacmanGDX _game;
 
     private Label title;
-    private TextButton playButton;
+    private TextButton replayButton;
     private TextButton exitButton;
 
-    public TitleScreen(PacmanGDX game) {
+    public EndScreen(PacmanGDX game, int score) {
         _game = game;
         _stage = new Stage();
 
@@ -32,9 +31,9 @@ public class TitleScreen implements Screen {
 
         Label.LabelStyle titleStyle = new Label.LabelStyle();
         titleStyle.font = font;
-        titleStyle.fontColor = new Color(255,255,0,255);
+        titleStyle.fontColor = new Color(0,255,40,255);
 
-        title = new Label("Pacman Game!", titleStyle);
+        title = new Label("You won!\nYour score is "+score, titleStyle);
         title.setAlignment(Align.center);
         title.setY(Gdx.graphics.getHeight()*2/3);
         title.setWidth(Gdx.graphics.getWidth());
@@ -46,10 +45,10 @@ public class TitleScreen implements Screen {
         playButtonStyle.fontColor = new Color(255, 255, 255, 255);
         playButtonStyle.overFontColor = new Color(0, 0, 255, 255);
 
-        playButton = new TextButton("Play!", playButtonStyle);
-        playButton.setWidth(Gdx.graphics.getWidth()/2);
-        playButton.setPosition(Gdx.graphics.getWidth()/2-playButton.getWidth()/2,Gdx.graphics.getHeight()/2-playButton.getHeight()/2);
-        playButton.addListener(new InputListener(){
+        replayButton = new TextButton("Replay?", playButtonStyle);
+        replayButton.setWidth(Gdx.graphics.getWidth()/2);
+        replayButton.setPosition(Gdx.graphics.getWidth()/2-replayButton.getWidth()/2,Gdx.graphics.getHeight()/2-replayButton.getHeight()/2);
+        replayButton.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 _game.setUpPlayModeScreen();
@@ -59,7 +58,7 @@ public class TitleScreen implements Screen {
                 return true;
             }
         });
-        _stage.addActor(playButton);
+        _stage.addActor(replayButton);
 
 
         TextButton.TextButtonStyle exitButtonStyle = new TextButton.TextButtonStyle();
@@ -87,7 +86,7 @@ public class TitleScreen implements Screen {
         return title;
     }
     public TextButton getPlayButton() {
-        return playButton;
+        return replayButton;
     }
     public TextButton getExitButton() {
         return exitButton;

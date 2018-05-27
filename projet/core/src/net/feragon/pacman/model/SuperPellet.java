@@ -10,9 +10,9 @@ public class SuperPellet extends GameElement implements Interactable {
 	}
 
 	@Override
-	public void takenBy(Pacman pacman) {
+	public boolean takenBy(Pacman pacman) {
 		if(!isShown()) {
-			return;
+			return false;
 		}
 		
 		pacman.addPoints(POINTS);
@@ -20,5 +20,6 @@ public class SuperPellet extends GameElement implements Interactable {
 		for(Monster monster : world.getMaze().getMonsters()) {
 			monster.setWeak();
 		}
+		return true;
 	}
 }

@@ -1,20 +1,21 @@
 package net.feragon.pacman.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 import net.feragon.pacman.PacmanGDX;
 
-public class TitleScreen implements Screen {
+public class PlayModeScreen implements Screen {
 
     private Stage _stage;
     private PacmanGDX _game;
@@ -23,64 +24,58 @@ public class TitleScreen implements Screen {
     private TextButton playButton;
     private TextButton exitButton;
 
-    public TitleScreen(PacmanGDX game) {
+    private Image arrows;
+    private Image cursor;
+
+    public PlayModeScreen(PacmanGDX game) {
         _game = game;
         _stage = new Stage();
 
         BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/ubuntu.fnt"));
+        Texture arrowsTexture = new Texture("images/arrows.png");
+        Texture cursorTexture = new Texture("images/cursor.png");
 
 
         Label.LabelStyle titleStyle = new Label.LabelStyle();
         titleStyle.font = font;
         titleStyle.fontColor = new Color(255,255,0,255);
 
-        title = new Label("Pacman Game!", titleStyle);
+        title = new Label("Choose a game mode:", titleStyle);
         title.setAlignment(Align.center);
         title.setY(Gdx.graphics.getHeight()*2/3);
         title.setWidth(Gdx.graphics.getWidth());
         _stage.addActor(title);
 
 
-        TextButton.TextButtonStyle playButtonStyle = new TextButton.TextButtonStyle();
-        playButtonStyle.font = font;
-        playButtonStyle.fontColor = new Color(255, 255, 255, 255);
-        playButtonStyle.overFontColor = new Color(0, 0, 255, 255);
-
-        playButton = new TextButton("Play!", playButtonStyle);
-        playButton.setWidth(Gdx.graphics.getWidth()/2);
-        playButton.setPosition(Gdx.graphics.getWidth()/2-playButton.getWidth()/2,Gdx.graphics.getHeight()/2-playButton.getHeight()/2);
-        playButton.addListener(new InputListener(){
+        arrows = new Image(arrowsTexture);
+        arrows.setPosition(50, Gdx.graphics.getHeight()/4);
+        arrows.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                _game.setUpPlayModeScreen();
+                _game.setUpGameScreen('a');
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 return true;
             }
         });
-        _stage.addActor(playButton);
+        _stage.addActor(arrows);
 
 
-        TextButton.TextButtonStyle exitButtonStyle = new TextButton.TextButtonStyle();
-        exitButtonStyle.font = font;
-        exitButtonStyle.fontColor = new Color(255, 255, 255, 255);
-        exitButtonStyle.overFontColor = new Color(255, 0, 0, 255);
-
-        exitButton = new TextButton("Quit", exitButtonStyle);
-        exitButton.setWidth(Gdx.graphics.getWidth()/2);
-        exitButton.setPosition(Gdx.graphics.getWidth()/2-exitButton.getWidth()/2,Gdx.graphics.getHeight()/2-2*exitButton.getHeight());
-        exitButton.addListener(new InputListener(){
+        cursor = new Image(cursorTexture);
+        cursor.setPosition(Gdx.graphics.getWidth() - cursorTexture.getWidth() - 50, Gdx.graphics.getHeight()/4);
+        cursor.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                Gdx.app.exit();
+                _game.setUpGameScreen('c');
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 return true;
             }
         });
-        _stage.addActor(exitButton);
+        _stage.addActor(cursor);
+
     }
 
     public Label getTitle() {

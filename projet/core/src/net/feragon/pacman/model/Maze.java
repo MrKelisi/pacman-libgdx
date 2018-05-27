@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import com.badlogic.gdx.math.Vector2;
+import org.omg.CORBA.DynAnyPackage.InvalidValue;
 
 public class Maze implements Iterable<GameElement> {
 	private int width;
@@ -16,6 +17,7 @@ public class Maze implements Iterable<GameElement> {
 	private Pacman pacman;
 	private ArrayList<Class<? extends GameElement>> displayOrder;
 	private ArrayList<Monster> _monsters;
+	private int nbPellets;
 	
 	public Maze(World world) {
 		width = 0;
@@ -113,6 +115,7 @@ public class Maze implements Iterable<GameElement> {
 		}
 		
 		pacman = (Pacman) _elements.get(Pacman.class).get(0);
+		nbPellets = _elements.get(Point.class).size() + _elements.get(SuperPellet.class).size();
 	}
 	
 	public Pacman getPacman() {
@@ -125,6 +128,12 @@ public class Maze implements Iterable<GameElement> {
 	 */
 	public ArrayList<Monster> getMonsters() {
 		return _monsters;
+	}
+
+	public void decreaseRemainingPellets() throws InvalidValue {
+		nbPellets--;
+		if(nbPellets <= 0)
+			throw new InvalidValue("No more pellets.");
 	}
 
 	@Override
@@ -162,4 +171,5 @@ public class Maze implements Iterable<GameElement> {
 			}
 		};
 	}
+
 }

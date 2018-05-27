@@ -5,8 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 
 import net.feragon.pacman.input.PacmanInputProcessor;
-import net.feragon.pacman.input.TitleInputProcessor;
+import net.feragon.pacman.input.MenuInputProcessor;
+import net.feragon.pacman.screens.EndScreen;
 import net.feragon.pacman.screens.GameScreen;
+import net.feragon.pacman.screens.PlayModeScreen;
 import net.feragon.pacman.screens.TitleScreen;
 
 public class PacmanGDX extends Game {
@@ -27,12 +29,12 @@ public class PacmanGDX extends Game {
 
 		indexMultiplexer.clear();
 		indexMultiplexer.addProcessor(ts.getStage());
-		indexMultiplexer.addProcessor(new TitleInputProcessor(this));
+		indexMultiplexer.addProcessor(new MenuInputProcessor(this));
 		Gdx.input.setInputProcessor(indexMultiplexer);
 
 	}
 
-	public void setUpGameScreen() {
+	public void setUpGameScreen(char gameMode) {
 		if(this.screen != null) {
 			this.getScreen().dispose();
 		}
@@ -40,8 +42,36 @@ public class PacmanGDX extends Game {
 		this.setScreen(gs);
 
 		indexMultiplexer.clear();
-		indexMultiplexer.addProcessor(new PacmanInputProcessor(gs.getWorld().getMaze().getPacman(), this));
+		indexMultiplexer.addProcessor(new PacmanInputProcessor(gs.getWorld().getMaze().getPacman(), gameMode, this));
 		Gdx.input.setInputProcessor(indexMultiplexer);
+	}
+
+	public void setUpEndScreen(int score) {
+		if(this.screen != null) {
+			this.getScreen().dispose();
+		}
+		EndScreen es = new EndScreen(this, score);
+		this.setScreen(es);
+
+		indexMultiplexer.clear();
+		indexMultiplexer.addProcessor(es.getStage());
+		indexMultiplexer.addProcessor(new MenuInputProcessor(this));
+		Gdx.input.setInputProcessor(indexMultiplexer);
+
+	}
+
+	public void setUpPlayModeScreen() {
+		if(this.screen != null) {
+			this.getScreen().dispose();
+		}
+		PlayModeScreen pms = new PlayModeScreen(this);
+		this.setScreen(pms);
+
+		indexMultiplexer.clear();
+		indexMultiplexer.addProcessor(pms.getStage());
+		//indexMultiplexer.addProcessor(new PlayModeInputProcessor(this));
+		Gdx.input.setInputProcessor(indexMultiplexer);
+
 	}
 
 	@Override
