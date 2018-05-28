@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 public abstract class Monster extends Player {
 	public static final double WEAK_TIME = 10;
 	private double _weakTime;
+	private boolean dead = false;
 	
 	public Monster(Vector2 position, World world) {
 		super(position, world);
@@ -78,14 +79,19 @@ public abstract class Monster extends Player {
 		
 		if(isInHome()) {
 			//TODO: sortir de la maison sans dépendre du niveau
-			if(getPosition().x <= 12) {
-				setDirection(Direction.RIGHT);
-			}
-			else if(getPosition().x >= 14) {
-				setDirection(Direction.LEFT);
+			if(!isDead()) {
+				if(getPosition().x <= 12) {
+					setDirection(Direction.RIGHT);
+				}
+				else if(getPosition().x >= 14) {
+					setDirection(Direction.LEFT);
+				}
+				else {
+					setDirection(Direction.UP);
+				}
 			}
 			else {
-				setDirection(Direction.UP);
+				setDirection(getNewDirection());
 			}
 		}
 		else if(isIntersection()) {
@@ -103,6 +109,16 @@ public abstract class Monster extends Player {
 	
 	private void resetWeak() {
 		_weakTime = 0;
+	}
+
+	public boolean isDead() {
+		return dead;
+	}
+	public void setDead() {
+		dead = true;
+	}
+	public void resetDead() {
+		dead = false;
 	}
 	
 	public void update(double timeElapsed) {

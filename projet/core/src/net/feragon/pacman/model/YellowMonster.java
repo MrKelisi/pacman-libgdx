@@ -11,6 +11,20 @@ public class YellowMonster extends Monster {
 
 	@Override
 	protected Direction getNewDirection() {
+
+		try {
+			if (isDead()) {
+				Direction direction = Strategy.flood(getPosition(), getStartPos(), world);
+				if (direction == null) {
+					resetDead();
+					return Strategy.getRandomDirection(getPossibleDirections());
+				}
+				return direction;
+			}
+		} catch(PathNotFoundException e) {
+			return Strategy.getRandomDirection(getPossibleDirections());
+		}
+
 		return Strategy.getRandomDirection(getPossibleDirections());
 	}
 }

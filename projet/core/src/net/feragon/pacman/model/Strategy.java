@@ -33,7 +33,7 @@ public class Strategy {
 	}
 	
 	static Direction flood(Vector2 monsterPosition, Vector2 target, World world) throws PathNotFoundException {
-		if(target == monsterPosition) {
+		if(target.equals(monsterPosition)) {
 			return null;
 		}
 		
@@ -54,7 +54,7 @@ public class Strategy {
 					return direction.reverse();
 				}
 				
-				if(world.getMaze().get(nextBlock) instanceof Blocking) {
+				if(world.getMaze().get(nextBlock) instanceof Block) {
 					continue;
 				}
 				

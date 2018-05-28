@@ -8,6 +8,7 @@ import net.feragon.pacman.model.Monster;
 public class MonsterTexture implements ITexturable {
 	private Texture _texture;
 	private AnimatedTexture _weakTexture;
+	private Texture _eyesTexture;
 	private double _oldWeakTime;
 	
 	public MonsterTexture(Texture texture) {
@@ -21,6 +22,8 @@ public class MonsterTexture implements ITexturable {
 		_weakTexture.addTexture(texture);
 		
 		_texture = texture;
+
+		_eyesTexture = new Texture("images/ghostDead.png"); //TODO: générer qu'une fois
 	}
 
 	@Override
@@ -35,6 +38,10 @@ public class MonsterTexture implements ITexturable {
 		}
 		
 		Monster monster = (Monster) element;
+		if(monster.isDead()) {
+			return _eyesTexture;
+		}
+
 		double weakTime = monster.getWeakTime();
 		if(weakTime > 0) {
 			if(_oldWeakTime < weakTime) {

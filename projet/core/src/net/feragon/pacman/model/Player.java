@@ -99,6 +99,14 @@ public class Player extends GameElement {
 	}
 
 	/**
+	 * Retourne la position de départ
+	 * @return la position de départ
+	 */
+	public Vector2 getStartPos() {
+		return _startPos;
+	}
+
+	/**
 	 * Replace le joueur à sa position de départ
 	 */
 	public void resetPosition() {

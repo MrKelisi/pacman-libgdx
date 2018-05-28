@@ -1,7 +1,6 @@
 package net.feragon.pacman.model;
 
 import com.badlogic.gdx.math.Vector2;
-import org.omg.CORBA.DynAnyPackage.InvalidValue;
 
 import java.util.Iterator;
 
@@ -51,9 +50,9 @@ public class World implements Iterable<GameElement> {
 				monster.move();
 
 				Vector2 v = monster.getPosition().cpy().sub(pacmanPos);
-				boolean crossedWay = (v.x + v.y == 1 && v.x * v.y == 0 && monster.direction().equals(getMaze().getPacman().direction().reverse()));
+				boolean crossedWay = (Math.abs(v.x + v.y) == 1 && v.x * v.y == 0 && monster.direction().equals(getMaze().getPacman().direction().reverse()));
 
-				if(monster.getPosition().equals(pacmanPos) || crossedWay) {
+				if((monster.getPosition().equals(pacmanPos) || crossedWay) && !monster.isDead()) {
 					if(monster.getWeakTime() <= 0) {
 						getMaze().getPacman().takeALife();
 						getMaze().getPacman().addPoints(-200);
@@ -65,7 +64,7 @@ public class World implements Iterable<GameElement> {
 					}
 					else {
 						getMaze().getPacman().addPoints(500);
-						monster.resetPosition();
+						monster.setDead();
 					}
 				}
 			}

@@ -10,7 +10,18 @@ public class RedMonster extends Monster {
 	@Override
 	protected Direction getNewDirection() {
 		try {
-			Direction direction = Strategy.flood(getPosition(), world.getMaze().getPacman().getPosition(), world);
+			Direction direction;
+
+			if(isDead()) {
+				direction = Strategy.flood(getPosition(), getStartPos(), world);
+				if(direction == null) {
+					resetDead();
+					return Strategy.getRandomDirection(getPossibleDirections());
+				}
+				return direction;
+			}
+
+			direction = Strategy.flood(getPosition(), world.getMaze().getPacman().getPosition(), world);
 			if(direction == null) {
 				return world.getMaze().getPacman().nextDirection();
 			}
