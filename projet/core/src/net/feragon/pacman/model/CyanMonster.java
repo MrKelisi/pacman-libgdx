@@ -17,7 +17,7 @@ public class CyanMonster extends Monster {
 				Direction direction = Strategy.flood(getPosition(), getStartPos(), world);
 				if (direction == null) {
 					resetDead();
-					return Strategy.getRandomDirection(getPossibleDirections());
+					return Direction.UP;
 				}
 				return direction;
 			}

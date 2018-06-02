@@ -16,7 +16,7 @@ public class RedMonster extends Monster {
 				direction = Strategy.flood(getPosition(), getStartPos(), world);
 				if(direction == null) {
 					resetDead();
-					return Strategy.getRandomDirection(getPossibleDirections());
+					return Direction.UP;
 				}
 				return direction;
 			}

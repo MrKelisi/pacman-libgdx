@@ -130,10 +130,10 @@ public class Maze implements Iterable<GameElement> {
 		return _monsters;
 	}
 
-	public void decreaseRemainingPellets() throws Exception {
+	public void decreaseRemainingPellets() throws EndGameException {
 		nbPellets--;
 		if(nbPellets <= 0)
-			throw new Exception("You won!\nYour score is "+getPacman().points());
+			throw new EndGameException("You won!\nYour score is "+getPacman().points());
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package net.feragon.pacman.screens;
 
 import com.badlogic.gdx.Screen;
 import net.feragon.pacman.PacmanGDX;
+import net.feragon.pacman.model.EndGameException;
 import net.feragon.pacman.model.World;
 import net.feragon.pacman.view.WorldRenderer;
 
@@ -25,7 +26,7 @@ public class GameScreen implements Screen {
 		try {
 			renderer.render(elapsedTime);
 
-		} catch (Exception message) {
+		} catch (EndGameException message) {
 			game.setUpEndScreen(message.getMessage());
 		}
 	}
