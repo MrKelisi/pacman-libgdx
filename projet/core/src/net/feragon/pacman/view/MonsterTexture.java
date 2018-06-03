@@ -13,7 +13,7 @@ public class MonsterTexture implements ITexturable {
 	
 	/**
 	 * Create an ITexturable for monsters
-	 * @param texture Monter texture, this class will take ownership
+	 * @param texture Monster texture, this class will take ownership
 	 * @param escaping Escaping texture
 	 * @param dead Dead texture
 	 */

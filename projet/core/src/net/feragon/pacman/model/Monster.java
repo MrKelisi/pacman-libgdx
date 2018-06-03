@@ -7,10 +7,11 @@ import com.badlogic.gdx.math.Vector2;
 public abstract class Monster extends Player implements IUpdateable {
 	public static final double WEAK_TIME = 10;
 	private double _weakTime;
-	private boolean dead = false;
+	private boolean dead;
 	
 	public Monster(Vector2 position, World world) {
 		super(position, world);
+		dead = false;
 	}
 
 	@Override

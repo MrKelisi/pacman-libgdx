@@ -47,6 +47,7 @@ public class World implements Iterable<GameElement> {
 	/**
 	 * Fait avancer le monde !
 	 * @param timeElapsed Temps écoulé depuis la dernière mise à jour
+	 * @throws EndGameException si la partie est terminée
 	 */
 	public void update(float timeElapsed) throws EndGameException {
 		_tickProgression += timeElapsed; 
