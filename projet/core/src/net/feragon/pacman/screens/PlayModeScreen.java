@@ -49,7 +49,7 @@ public class PlayModeScreen implements Screen {
         arrows.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                _game.setUpGameScreen('a');
+                _game.setUpGameScreen(true);
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -64,7 +64,7 @@ public class PlayModeScreen implements Screen {
         cursor.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                _game.setUpGameScreen('c');
+                _game.setUpGameScreen(false);
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

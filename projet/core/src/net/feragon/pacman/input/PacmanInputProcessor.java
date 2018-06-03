@@ -8,8 +8,7 @@ import net.feragon.pacman.model.Direction;
 import net.feragon.pacman.model.Pacman;
 
 public class PacmanInputProcessor implements InputProcessor {
-	private Pacman pacman;
-	private char gameMode;
+	protected Pacman pacman;
 	private PacmanGDX game;
 	
 	/**
@@ -18,49 +17,23 @@ public class PacmanInputProcessor implements InputProcessor {
 	 * @param gameMode
 	 * @param game
 	 */
-	public PacmanInputProcessor(Pacman pacman, char gameMode, PacmanGDX game) {
+	public PacmanInputProcessor(Pacman pacman, PacmanGDX game) {
 		if(pacman == null) {
 			throw new NullPointerException("Pacman null");
 		}
 		
 		this.pacman = pacman;
-		this.gameMode = gameMode;
 		this.game = game;
 	}
 	
 	@Override
 	public boolean keyDown(int keycode) {
-
 		if(keycode == Input.Keys.ESCAPE) {
 			game.setUpTitleScreen();
 			return true;
 		}
 
-		if(gameMode != 'a') {
-			return false;
-		}
-
-		switch (keycode) {
-			case Input.Keys.LEFT:
-                pacman.setNextDirection(Direction.LEFT);
-				break;
-
-            case Input.Keys.UP:
-                pacman.setNextDirection(Direction.UP);
-                break;
-
-            case Input.Keys.RIGHT:
-                pacman.setNextDirection(Direction.RIGHT);
-                break;
-
-            case Input.Keys.DOWN:
-                pacman.setNextDirection(Direction.DOWN);
-                break;
-				
-			default:
-				return false;
-		}
-		return true;
+		return false;
 	}
 
 	@Override
@@ -75,28 +48,7 @@ public class PacmanInputProcessor implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		if(gameMode != 'c')
-			return false;
-
-		float halfWidth = Gdx.graphics.getWidth() / 2;
-		float halfHeight = Gdx.graphics.getHeight() / 2;
-		screenX -= halfWidth;
-		screenY -= halfHeight;
-		
-		if(screenY > Math.abs(screenX)) {
-			pacman.setNextDirection(Direction.DOWN);
-		}
-		else if(screenY < -Math.abs(screenX)) {
-			pacman.setNextDirection(Direction.UP);
-		}
-		else if(screenX < Math.abs(screenY)) {
-			pacman.setNextDirection(Direction.LEFT);
-		}
-		else {
-			pacman.setNextDirection(Direction.RIGHT);
-		}
-		
-		return true;
+		return false;
 	}
 
 	@Override

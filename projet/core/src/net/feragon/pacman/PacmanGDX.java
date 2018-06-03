@@ -6,6 +6,8 @@ import com.badlogic.gdx.InputMultiplexer;
 
 import net.feragon.pacman.input.GameModeInputProcessor;
 import net.feragon.pacman.input.PacmanInputProcessor;
+import net.feragon.pacman.input.PacmanKeyboardInputProcessor;
+import net.feragon.pacman.input.PacmanMouseInputProcessor;
 import net.feragon.pacman.input.MenuInputProcessor;
 import net.feragon.pacman.screens.EndScreen;
 import net.feragon.pacman.screens.GameScreen;
@@ -41,7 +43,7 @@ public class PacmanGDX extends Game {
 	 * Change le Screen actuel pour celui du jeu
 	 * @param gameMode Mode d'entrée pour le jeu
 	 */
-	public void setUpGameScreen(char gameMode) {
+	public void setUpGameScreen(boolean useKeyboard) {
 		if(this.screen != null) {
 			this.getScreen().dispose();
 		}
@@ -49,7 +51,12 @@ public class PacmanGDX extends Game {
 		this.setScreen(gs);
 
 		indexMultiplexer.clear();
-		indexMultiplexer.addProcessor(new PacmanInputProcessor(gs.getWorld().getMaze().getPacman(), gameMode, this));
+		if(useKeyboard) {
+			indexMultiplexer.addProcessor(new PacmanKeyboardInputProcessor(gs.getWorld().getMaze().getPacman(), this));
+		}
+		else {
+			indexMultiplexer.addProcessor(new PacmanMouseInputProcessor(gs.getWorld().getMaze().getPacman(), this));
+		}
 		Gdx.input.setInputProcessor(indexMultiplexer);
 	}
 
