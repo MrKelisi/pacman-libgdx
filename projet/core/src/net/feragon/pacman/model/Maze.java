@@ -40,10 +40,16 @@ public class Maze implements Iterable<GameElement> {
 		displayOrder.add(Pacman.class);
 	}
 
+	/**
+	 * @return Lareur en nombre de blocs
+	 */
 	public int getWidth() {
 		return width;
 	}
 
+	/**
+	 * @return Hauteur en nombre de blocs
+	 */
 	public int getHeight() {
 		return height;
 	}
@@ -96,6 +102,9 @@ public class Maze implements Iterable<GameElement> {
         return _elementsPos.get(pos);
 	}
 	
+	/**
+	 * Charge le niveau de démo
+	 */
 	private void loadDemoLevel() {
 		LevelFactory level = new LevelFactory("levels/demo.txt", world);
 	
@@ -118,6 +127,9 @@ public class Maze implements Iterable<GameElement> {
 		nbPellets = _elements.get(Point.class).size() + _elements.get(SuperPellet.class).size();
 	}
 	
+	/**
+	 * @return Pacman
+	 */
 	public Pacman getPacman() {
 		return pacman;
 	}
@@ -130,6 +142,10 @@ public class Maze implements Iterable<GameElement> {
 		return _monsters;
 	}
 
+	/**
+	 * Enlève un pellet 
+	 * @throws EndGameException S'il n'y a plus de pellets
+	 */
 	public void decreaseRemainingPellets() throws EndGameException {
 		nbPellets--;
 		if(nbPellets <= 0)

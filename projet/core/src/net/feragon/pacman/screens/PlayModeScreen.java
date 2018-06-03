@@ -113,6 +113,9 @@ public class PlayModeScreen implements Screen {
         _stage.dispose();
     }
 
+    /**
+     * @return Stage utilisé
+     */
 	public Stage getStage() {
 		return _stage;
 	}

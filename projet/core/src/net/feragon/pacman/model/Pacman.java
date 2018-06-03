@@ -57,10 +57,16 @@ public class Pacman extends Player {
 		return _nextDirection;
 	}
 	
+	/**
+	 * @return Nombre de vies
+	 */
 	public int getLifes() {
 		return _lifes;
 	}
 
+	/**
+	 * Enlève une vie
+	 */
 	public void takeALife() {
 		_lifes--;
 	}

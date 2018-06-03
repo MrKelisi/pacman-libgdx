@@ -4,7 +4,7 @@ import java.util.EnumSet;
 
 import com.badlogic.gdx.math.Vector2;
 
-public abstract class Monster extends Player {
+public abstract class Monster extends Player implements IUpdateable {
 	public static final double WEAK_TIME = 10;
 	private double _weakTime;
 	private boolean dead = false;
@@ -107,28 +107,49 @@ public abstract class Monster extends Player {
 		}
 	}
 
+	/**
+	 * @return Temps de vulnérabilité restant
+	 */
 	public double getWeakTime() {
 		return _weakTime;
 	}
 
+	/**
+	 * Rend le monstre vulnérable
+	 */
 	public void setWeak() {
 		_weakTime = WEAK_TIME;
 	}
 	
+	/**
+	 * Enlève la vulnérabilité du monstre
+	 */
 	private void resetWeak() {
 		_weakTime = 0;
 	}
 
+	/**
+	 * @return Vrai si le monstre est mort
+	 */
 	public boolean isDead() {
 		return dead;
 	}
+	
+	/**
+	 * Tue le monstre
+	 */
 	public void setDead() {
 		dead = true;
 	}
+	
+	/**
+	 * Ressucite le monstre
+	 */
 	public void resetDead() {
 		dead = false;
 	}
 	
+	@Override
 	public void update(double timeElapsed) {
 		if(_weakTime > 0) {
 			_weakTime -= timeElapsed;

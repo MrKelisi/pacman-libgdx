@@ -20,7 +20,9 @@ public class PacmanGDX extends Game {
 		indexMultiplexer = new InputMultiplexer();
 	}
 
-
+	/**
+	 * Change le Screen actuel pour celui du menu
+	 */
 	public void setUpTitleScreen() {
 		if(this.screen != null) {
 			this.getScreen().dispose();
@@ -35,6 +37,10 @@ public class PacmanGDX extends Game {
 
 	}
 
+	/**
+	 * Change le Screen actuel pour celui du jeu
+	 * @param gameMode Mode d'entrée pour le jeu
+	 */
 	public void setUpGameScreen(char gameMode) {
 		if(this.screen != null) {
 			this.getScreen().dispose();
@@ -47,6 +53,10 @@ public class PacmanGDX extends Game {
 		Gdx.input.setInputProcessor(indexMultiplexer);
 	}
 
+	/**
+	 * Change le Screen actuel pour celui de fin
+	 * @param message Message de fin
+	 */
 	public void setUpEndScreen(String message) {
 		if(this.screen != null) {
 			this.getScreen().dispose();
@@ -61,6 +71,9 @@ public class PacmanGDX extends Game {
 
 	}
 
+	/**
+	 * Change le Screen actuel pour celui de selection du mode d'entrée
+	 */
 	public void setUpPlayModeScreen() {
 		if(this.screen != null) {
 			this.getScreen().dispose();

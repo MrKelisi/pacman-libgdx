@@ -29,10 +29,18 @@ public class TextureFactory implements IUpdateable {
 		addSingleTexture(Blank.class, "images/dark.png");
 	}
 	
+	/**
+	 * Ajoute une texture simple
+	 * @param c Classe
+	 * @param path Chemin de la texture
+	 */
 	private void addSingleTexture(Class<? extends GameElement> c, String path) {
 		textures.put(c, new SingleTexture(new Texture(path)));
 	}
 	
+	/**
+	 * @return Instance de TextureFactory
+	 */
 	public static TextureFactory getInstance() {
 		if(instance == null) {
 			instance = new TextureFactory();
@@ -40,6 +48,9 @@ public class TextureFactory implements IUpdateable {
 		return instance;
 	}
 	
+	/**
+	 * Remet l'instance à zéro
+	 */
 	public void reset() {
 		instance = null;
 	}
@@ -49,6 +60,9 @@ public class TextureFactory implements IUpdateable {
 		dispose();
 	}
 
+	/**
+	 * Libère les textures
+	 */
 	private void dispose() {
 		for(ITexturable texture : textures.values()) {
 			texture.dispose();
@@ -58,6 +72,11 @@ public class TextureFactory implements IUpdateable {
 		ghostDead.dispose();
 	}
 	
+	/**
+	 * @param c Classe
+	 * @param ge Élément concerné
+	 * @return Texture demandée
+	 */
 	public Texture getTexture(Class<? extends GameElement> c, GameElement ge) {
 		return textures.get(c).getTexture(ge);
 	}

@@ -61,6 +61,9 @@ public class WorldRenderer {
 		spriteBatch.end();
 	}
 	
+	/**
+	 * Libère les ressources
+	 */
 	public void dispose() {
 		spriteBatch.dispose();
 	}

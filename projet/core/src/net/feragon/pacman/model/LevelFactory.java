@@ -31,14 +31,25 @@ public class LevelFactory {
 		loadLevel(fileName, world);
 	}
 
+	/**
+	 * @return Largeur en nombre de cases
+	 */
 	public int getWidth() {
 		return width;
 	}
 
+	/**
+	 * @return Hauteur en nombre de cases
+	 */
 	public int getHeight() {
 		return height;
 	}
 
+	/**
+	 * Charge un niveau
+	 * @param fileName Fichier du niveau
+	 * @param world Monde à initialiser
+	 */
 	private void loadLevel(String fileName, World world) {
 		int x = 0;
 		int y = 0;
@@ -88,10 +99,19 @@ public class LevelFactory {
 		}
 	}
 	
+	/**
+	 * Corrige la position de l'élément une fois tous placés
+	 * @param ge Élément
+	 * @param y Hauteur du monde
+	 */
 	private void correctPosition(GameElement ge, int y) {
 		ge.setPosition(new Vector2(ge.getPosition().x, y - ge.getPosition().y));
 	}
 
+	/**
+	 * Retourne les éléments du jeu
+	 * @return Éléments du jeu
+	 */
 	public HashMap<Class<? extends GameElement>, ArrayList<GameElement>> getElements() {
 		return elements;
 	}

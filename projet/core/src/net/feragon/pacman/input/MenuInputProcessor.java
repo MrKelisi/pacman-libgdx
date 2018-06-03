@@ -9,6 +9,10 @@ public class MenuInputProcessor implements InputProcessor {
 
     private PacmanGDX _game;
 
+    /**
+     * InputProcessor pour le menu
+     * @param game Jeu
+     */
     public MenuInputProcessor(PacmanGDX game) {
         _game = game;
     }

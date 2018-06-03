@@ -17,6 +17,7 @@ public class GameScreen implements Screen {
 		this.game = game;
 	}
 
+	@Override
 	public void show() {
 		
 	}
@@ -31,14 +32,17 @@ public class GameScreen implements Screen {
 		}
 	}
 	
+	@Override
 	public void resize(int width, int height) {
 	
 	}
 	
+	@Override
 	public void pause() {
 		
 	}
 	
+	@Override
 	public void resume() {
 		
 	}
@@ -48,10 +52,14 @@ public class GameScreen implements Screen {
 
 	}
 
+	@Override
 	public void dispose() {
 		renderer.dispose();
 	}
 
+	/**
+	 * @return Monde affiché
+	 */
 	public World getWorld() {
 		return world;
 	}

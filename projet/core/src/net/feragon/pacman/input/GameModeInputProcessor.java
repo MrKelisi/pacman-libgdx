@@ -9,6 +9,10 @@ public class GameModeInputProcessor implements InputProcessor {
 
     private PacmanGDX _game;
 
+    /**
+     * InputProcessor pour le menu de selection du mode d'entrée
+     * @param game
+     */
     public GameModeInputProcessor(PacmanGDX game) {
         _game = game;
     }

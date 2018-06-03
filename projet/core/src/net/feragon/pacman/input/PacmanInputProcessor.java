@@ -12,6 +12,12 @@ public class PacmanInputProcessor implements InputProcessor {
 	private char gameMode;
 	private PacmanGDX game;
 	
+	/**
+	 * InputProcessor pour le jeu
+	 * @param pacman
+	 * @param gameMode
+	 * @param game
+	 */
 	public PacmanInputProcessor(Pacman pacman, char gameMode, PacmanGDX game) {
 		if(pacman == null) {
 			throw new NullPointerException("Pacman null");

@@ -12,18 +12,32 @@ public abstract class GameElement {
 		this.world = world;
 	}
 
+	/**
+	 * @return Position de l'élément
+	 */
 	public Vector2 getPosition() {
 		return position;
 	}
 	
+	/**
+	 * Change la position
+	 * @param position Nouvelle position
+	 */
 	public void setPosition(Vector2 position) {
 		this.position = position;
 	}
 
+	/**
+	 * @return Vrai si l'élément doit s'afficher
+	 */
 	public boolean isShown() {
 		return show;
 	}
 
+	/**
+	 * Définit l'affichage de l'élément
+	 * @param sh Vrai si l'élément doit être affiché
+	 */
 	public void setShow(boolean sh) {
 		show = sh;
 	}

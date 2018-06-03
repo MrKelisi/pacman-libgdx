@@ -9,6 +9,13 @@ import java.util.Random;
 import com.badlogic.gdx.math.Vector2;
 
 public class Strategy {
+	/**
+	 * Stratégie réduisant X puis Y
+	 * @param monsterPosition Position du monstre
+	 * @param targetPosition Position cible
+	 * @param availableDirections Directions disponibles
+	 * @return Direction à prendre
+	 */
 	static Direction reduceXThenY(Vector2 monsterPosition, Vector2 targetPosition, EnumSet<Direction> availableDirections) {
 		if(targetPosition.x < monsterPosition.x && availableDirections.contains(Direction.LEFT)) {
 			return Direction.LEFT;
@@ -27,11 +34,24 @@ public class Strategy {
 		}
 	}
 	
+	/**
+	 * Stratégie choisissant au hasard
+	 * @param possibleDirections Directions possibles
+	 * @return Direction à prendre
+	 */
 	static Direction getRandomDirection(EnumSet<Direction> possibleDirections) {
 		Random random = new Random();
 		return (Direction) possibleDirections.toArray()[random.nextInt(possibleDirections.size())];
 	}
 	
+	/**
+	 * Stratégie d'innondation
+	 * @param monsterPosition Position du monstre
+	 * @param target Cible
+	 * @param world Monde
+	 * @return Direction à prendre
+	 * @throws PathNotFoundException si aucun chemin n'existe
+	 */
 	static Direction flood(Vector2 monsterPosition, Vector2 target, World world) throws PathNotFoundException {
 		if(target.equals(monsterPosition)) {
 			return null;

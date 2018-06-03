@@ -55,6 +55,10 @@ public class AnimatedTexture implements ITexturable, IUpdateable {
 		return _textures.get((int) Math.floor(_progression));
 	}
 
+	/**
+	 * Change la vitesse
+	 * @param fps Nombre d'images par seconde
+	 */
 	public void setFps(double fps) {
 		this._fps = fps;
 	}

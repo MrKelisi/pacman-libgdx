@@ -18,18 +18,28 @@ public class World implements Iterable<GameElement> {
 		}
 	}
 
+	/**
+	 * @return Largeur du monde en nombre de blocs
+	 */
 	public int getWidth() {
 		return laby.getWidth();
 	}
 	
+	/**
+	 * @return Hauteur du monde en nombre de blocs
+	 */
 	public int getHeight() {
 		return laby.getHeight();
 	}
 
+	/**
+	 * @return Labyrinthe
+	 */
 	public Maze getMaze() {
 		return laby;
 	}
 
+	@Override
 	public Iterator<GameElement> iterator() {
 		return laby.iterator();
 	}
@@ -82,6 +92,9 @@ public class World implements Iterable<GameElement> {
 		}
 	}
 
+	/**
+	 * Remet à zéro les positions des joueurs
+	 */
 	public void resetPositions() {
 		getMaze().getPacman().resetPosition();
 		for(Monster monster : getMaze().getMonsters()) {
