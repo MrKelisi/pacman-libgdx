@@ -11,19 +11,25 @@ public class MonsterTexture implements ITexturable {
 	private Texture _eyesTexture;
 	private double _oldWeakTime;
 	
-	public MonsterTexture(Texture texture) {
+	/**
+	 * Create an ITexturable for monsters
+	 * @param texture Monter texture, this class will take ownership
+	 * @param escaping Escaping texture
+	 * @param dead Dead texture
+	 */
+	public MonsterTexture(Texture texture, Texture escaping, Texture dead) {
 		if(texture == null) {
 			throw new NullPointerException("Texture null");
 		}
 		
 		_oldWeakTime = Monster.WEAK_TIME;
 		
-		_weakTexture = new AnimatedTexture(1, new Texture("images/ghostEscaping.png")); //TODO: générer qu'une fois
+		_weakTexture = new AnimatedTexture(1, escaping);
 		_weakTexture.addTexture(texture);
 		
 		_texture = texture;
 
-		_eyesTexture = new Texture("images/ghostDead.png"); //TODO: générer qu'une fois
+		_eyesTexture = dead;
 	}
 
 	@Override

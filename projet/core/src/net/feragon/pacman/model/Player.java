@@ -77,7 +77,6 @@ public class Player extends GameElement {
 	/**
 	 * Déplace le joueur précisément
 	 * @param timeElapsed Temps écoulé depuis le dernier déplacement complet
-	 * @TODO: la recherche de position peut être optimisée
 	 */
 	public void move(float timeElapsed) {
 		Vector2 newPos = getNextPosition(_direction);
@@ -86,9 +85,8 @@ public class Player extends GameElement {
         if(isElementAccessible(world.getMaze().get(newPos))) {
         	Vector2 moveVector = direction().moveVector().scl(timeElapsed / World.TICK_TIME);
     		setPosition(_origin.cpy().add(moveVector));
+    		_origin = oldOrigin;
         }
-        
-        _origin = oldOrigin;
 	}
 
 	/**

@@ -32,12 +32,15 @@ public class WorldRenderer {
 		camera.position.set(width/2, height/2, 0);
 	}
 	
+	/**
+	 * Render a game frame
+	 * @param timeElapsed Time elapsed since last frame
+	 * @throws EndGameException If the player won or lost
+	 */
 	public void render(float timeElapsed) throws EndGameException {
 		world.update(timeElapsed);
 		
-		//TODO: remove
-		PacmanTexture pacmanTexture = (PacmanTexture) TextureFactory.getInstance().getITexturable(Pacman.class);
-		pacmanTexture.update(timeElapsed);
+		TextureFactory.getInstance().update(timeElapsed);
 		
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.gl.glClearColor(0, 0, 0, 1);

@@ -6,9 +6,10 @@ import com.badlogic.gdx.graphics.Texture;
 
 import net.feragon.pacman.model.Direction;
 import net.feragon.pacman.model.GameElement;
+import net.feragon.pacman.model.IUpdateable;
 import net.feragon.pacman.model.Pacman;
 
-public class PacmanTexture implements ITexturable {
+public class PacmanTexture implements ITexturable, IUpdateable {
 	private EnumMap<Direction, AnimatedTexture> _textures;
 
 	public PacmanTexture() {
@@ -48,11 +49,7 @@ public class PacmanTexture implements ITexturable {
 		}
 	}
 
-	/**
-	 * Met à jour les textures 
-	 * @param timeElapsed Temps écoulé depuis la dernière mise à jour 
-	 * @TODO mettre à la bonne place
-	 */
+	@Override
 	public void update(double timeElapsed) {
 		for(AnimatedTexture texture : _textures.values()) {
 			texture.update(timeElapsed);

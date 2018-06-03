@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import com.badlogic.gdx.graphics.Texture;
 
 import net.feragon.pacman.model.GameElement;
+import net.feragon.pacman.model.IUpdateable;
 
-public class AnimatedTexture implements ITexturable {
+public class AnimatedTexture implements ITexturable, IUpdateable {
 	private ArrayList<Texture> _textures;
 	private double _fps;
 	private double _progression;
@@ -37,10 +38,7 @@ public class AnimatedTexture implements ITexturable {
 		_textures.add(texture);
 	}
 	
-	/**
-	 * Met à jour la texture
-	 * @param timeElapsed Temps écoulé depuis la dernière mise à jour
-	 */
+	@Override
 	public void update(double timeElapsed) {
 		_progression = (_progression + (timeElapsed * _fps)) % (double)_textures.size();
 	}
@@ -54,7 +52,6 @@ public class AnimatedTexture implements ITexturable {
 
 	@Override
 	public Texture getTexture(GameElement element) {
-		// TODO Auto-generated method stub
 		return _textures.get((int) Math.floor(_progression));
 	}
 

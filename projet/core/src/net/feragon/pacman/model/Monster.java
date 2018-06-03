@@ -78,16 +78,24 @@ public abstract class Monster extends Player {
 		super.move();
 		
 		if(isInHome()) {
-			//TODO: sortir de la maison sans dépendre du niveau
-			if(!isDead()) {
-				if(getPosition().x <= 12) {
-					setDirection(Direction.RIGHT);
-				}
-				else if(getPosition().x >= 14) {
+			if(!isDead() && isIntersection()) {
+				Direction direction = direction();
+				EnumSet<Direction> directions = getPossibleDirections();
+				
+				if(directions.contains(Direction.LEFT) && !direction.equals(Direction.RIGHT)) {
 					setDirection(Direction.LEFT);
 				}
-				else {
+				else if(directions.contains(Direction.UP) && !direction.equals(Direction.DOWN)) {
 					setDirection(Direction.UP);
+				}
+				else if(directions.contains(Direction.RIGHT) && !direction.equals(Direction.LEFT)) {
+					setDirection(Direction.RIGHT);
+				}
+				else if(directions.contains(Direction.DOWN) && !direction.equals(Direction.UP)) {
+					setDirection(Direction.DOWN);
+				}
+				else if(directions.size() > 0) {
+					setDirection(directions.iterator().next());
 				}
 			}
 			else {
