@@ -24,10 +24,10 @@ public class GameModeInputProcessor implements InputProcessor {
                 _game.setUpTitleScreen();
                 break;
             case Input.Keys.LEFT:
-                _game.setUpGameScreen('a');
+                _game.setUpGameScreen(true);
                 break;
             case Input.Keys.RIGHT:
-                _game.setUpGameScreen('c');
+                _game.setUpGameScreen(false);
                 break;
 
             default:
