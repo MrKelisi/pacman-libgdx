@@ -17,7 +17,7 @@ public class YellowMonster extends Monster {
 				Direction direction = Strategy.flood(getPosition(), getStartPos(), world);
 				if (direction == null) {
 					resetDead();
-					return Direction.UP;
+					return Direction.DOWN;
 				}
 				return direction;
 			}

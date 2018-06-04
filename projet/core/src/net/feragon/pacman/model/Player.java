@@ -10,7 +10,7 @@ public class Player extends GameElement {
 		super(position, world);
 		_origin = position;
 		_startPos = new Vector2(0,0);
-		_direction = Direction.LEFT;
+		_direction = Direction.DOWN;
 	}
 
 	@Override
@@ -109,7 +109,7 @@ public class Player extends GameElement {
 	 */
 	public void resetPosition() {
 		setPosition(_startPos);
-		_direction = Direction.LEFT;
+		_direction = Direction.DOWN;
 	}
 	
 	/**

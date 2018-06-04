@@ -9,7 +9,7 @@ public class Pacman extends Player {
 	
 	public Pacman(Vector2 position, World world) {
 		super(position, world);
-		_nextDirection = direction();
+		_nextDirection = Direction.DOWN;
 		_points = 0;
 		_lifes = 2;
 	}
