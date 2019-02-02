@@ -1,15 +1,16 @@
 package net.feragon.pacman.desktop;
 
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import net.feragon.pacman.PacmanGDX;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
-		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setWindowedMode(28*16, 33*16);
-		config.setResizable(false);
+		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.width = 28*16;
+		config.height = 33*16;
+		config.resizable = false;
 
-		new Lwjgl3Application(new PacmanGDX(), config);
+		new LwjglApplication(new PacmanGDX(), config);
 	}
 }
